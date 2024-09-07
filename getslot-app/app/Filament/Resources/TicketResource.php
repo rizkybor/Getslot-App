@@ -38,29 +38,65 @@ class TicketResource extends Resource
                 //
                 Fieldset::make('Details')
                     ->schema([
-                        TextInput::make('name')->required()->maxLength(255),
-                        TextArea::make('address')->required()->maxLength(255),
-                        FileUpload::make('thumbnail')->required()->image(),
+                        TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                        
+                        TextArea::make('address')
+                        ->required()
+                        ->maxLength(255),
+                        
+                        FileUpload::make('thumbnail')
+                        ->required()
+                        ->image(),
+                        
                         Repeater::make('photos')
                             ->relationship('photos')
                             ->schema([
-                                FileUpload::make('photo')->required()->image(),
+                                FileUpload::make('photo')
+                                ->required()
+                                ->image(),
                             ])->columnSpan(2)
                     ]),
 
                 Fieldset::make('Additional')
                     ->schema([
-                        RichEditor::make('about')->required(),
-                        TextInput::make('path_video')->required()->maxLength(255),
-                        TextInput::make('price')->required()->numeric()->prefix('IDR'),
-                        Select::make('is_popular')->options([
+                        RichEditor::make('about')
+                        ->required(),
+                        
+                        TextInput::make('path_video')
+                        ->required()
+                        ->maxLength(255),
+                        
+                        TextInput::make('price')
+                        ->required()
+                        ->numeric()
+                        ->prefix('IDR'),
+                        
+                        Select::make('is_popular')
+                        ->options([
                             '1' => 'Popular',
                             '0' => 'Not Popular',
-                        ])->required(),
-                        Select::make('category_id')->relationship('category', 'name')->searchable()->preload()->required(),
-                        Select::make('seller_id')->relationship('category', 'name')->searchable()->preload()->required(),
-                        TimePicker::make('open_time_at')->required(),
-                        TimePicker::make('close_time_at')->required(),
+                        ])
+                        ->required(),
+
+                        Select::make('category_id')
+                        ->relationship('category', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                        Select::make('seller_id')
+                        ->relationship('category', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                        TimePicker::make('open_time_at')
+                        ->required(),
+
+                        TimePicker::make('close_time_at')
+                        ->required(),
                     ])
             ]);
     }
@@ -73,7 +109,13 @@ class TicketResource extends Resource
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('category.name'),
                 ImageColumn::make('thumbnail'),
-                IconColumn::make('is_popular')->boolean()->trueColor('success')->falseColor('danger')->trueIcon('heroicon-o-check-circle')->falseIcon('heroicon-o-x-circle')->label('Popular'),
+                IconColumn::make('is_popular')
+                ->boolean()
+                ->trueColor('success')
+                ->falseColor('danger')
+                ->trueIcon('heroicon-o-check-circle')
+                ->falseIcon('heroicon-o-x-circle')
+                ->label('Popular'),
             ])
             ->filters([
                 //

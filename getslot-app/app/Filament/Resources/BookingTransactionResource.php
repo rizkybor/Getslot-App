@@ -7,13 +7,19 @@ use App\Filament\Resources\BookingTransactionResource\RelationManagers;
 use App\Models\BookingTransaction;
 use App\Models\Ticket;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -32,38 +38,72 @@ class BookingTransactionResource extends Resource
                 Wizard::make([
                     Step::make('Product and Price')->schema([
                         Select::make('ticket_id')
-                        ->relationship('ticket', 'name')
-                        ->searchable()
-                        ->preload()
-                        ->required()
-                        ->reactive()
-                        ->afterStateUpdated(function($state, callable $set){
-                            $ticket = Ticket::find($state);
-                            $set('price', $ticket ? $ticket->price : 0);
-                        }),
+                            ->relationship('ticket', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->reactive()
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $ticket = Ticket::find($state);
+                                $set('price', $ticket ? $ticket->price : 0);
+                            }),
 
                         TextInput::make('total_participant')
-                        ->required()
-                        ->numeric()
-                        ->prefix('People')
-                        ->reactive()
-                        ->afterStateUpdated(function($state, callable $get, callable $set){
-                            $price = $get('price');
-                            $subtotal = $price * $state;
-                            $totalPpn = $subtotal * 0.11;
-                            $totalAmount = $subtotal + $totalPpn;
+                            ->required()
+                            ->numeric()
+                            ->prefix('People')
+                            ->reactive()
+                            ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                                $price = $get('price');
+                                $subtotal = $price * $state;
+                                $totalPpn = $subtotal * 0.11;
+                                $totalAmount = $subtotal + $totalPpn;
 
-                            $set('total_amount', $totalAmount);
-                        }),
+                                $set('total_amount', $totalAmount);
+                            }),
 
                         TextInput::make('total_amount')
-                        ->required()
-                        ->numeric()
-                        ->prefix('IDR')
-                        ->readOnly()
-                        ->helperText('Harga sudah include PPN 11%')
-                    ])
+                            ->required()
+                            ->numeric()
+                            ->prefix('IDR')
+                            ->readOnly()
+                            ->helperText('Harga sudah include PPN 11%')
+                        ]),
+
+                        Step::make('Customer Information')->schema([
+                            TextInput::make('name')
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('phone_number')
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('email')
+                                ->required()
+                                ->maxLength(255),
+                            TextInput::make('booking_trx_id')
+                                ->required()
+                                ->maxLength(255),
+                        ]),
+
+                        Step::make('Payment Information')->schema([
+                            ToggleButtons::make('is_paid')
+                            ->label('Apakah sudah membayar ?')
+                            ->boolean()
+                            ->grouped()
+                            ->icons([
+                               'True' => 'heroicon-o-check',
+                               'False' => 'heroicon-o-x-mark',
+                            ])
+                            ->required(),
+                           FileUpload::make('proof')
+                           ->image()
+                           ->required(),
+                           DatePicker::make('started_at')
+                           ->required(),
+                        ])
                 ])
+                ->columnSpan('full')
+                ->columns(1)
             ]);
     }
 
@@ -72,6 +112,18 @@ class BookingTransactionResource extends Resource
         return $table
             ->columns([
                 //
+                ImageColumn::make('ticket.thumbnail'),
+                TextColumn::make('name')
+                ->searchable(),
+                TextColumn::make('booking_trx_id')
+                ->searchable(),
+                IconColumn::make('is_paid')
+                ->boolean()
+                ->trueColor('success')
+                ->falseColor('danger')
+                ->trueIcon('heroicon-o-check-circle')
+                ->falseIcon('heroicon-o-x-circle')
+                ->label('Terverifikasi'),
             ])
             ->filters([
                 //

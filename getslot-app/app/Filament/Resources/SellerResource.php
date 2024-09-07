@@ -30,10 +30,21 @@ class SellerResource extends Resource
         return $form
             ->schema([
                 //
-                TextInput::make('name')->required()->maxLength(255),
-                TextInput::make('telephone')->required()->maxLength(255),
-                TextInput::make('location')->required()->maxLength(255),
-                FileUpload::make('photo')->image()->required(),
+                TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+
+                TextInput::make('telephone')
+                ->required()
+                ->maxLength(255),
+
+                TextInput::make('location')
+                ->required()
+                ->maxLength(255),
+
+                FileUpload::make('photo')
+                ->image()
+                ->required(),
             ]);
     }
 
@@ -42,8 +53,11 @@ class SellerResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('name')->searchable(),
-                ImageColumn::make('photo')->circular(),
+                TextColumn::make('name')
+                ->searchable(),
+
+                ImageColumn::make('photo')
+                ->circular(),
             ])
             ->filters([
                 //
