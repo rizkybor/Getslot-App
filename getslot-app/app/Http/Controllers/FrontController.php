@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\FrontService;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
