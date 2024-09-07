@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('photo');
             $table->foreignId('ticket_id')->constrained()->cascadeOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
