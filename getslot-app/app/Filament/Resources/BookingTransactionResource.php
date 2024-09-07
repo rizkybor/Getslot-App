@@ -20,6 +20,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -113,10 +114,13 @@ class BookingTransactionResource extends Resource
             ->columns([
                 //
                 ImageColumn::make('ticket.thumbnail'),
+
                 TextColumn::make('name')
                 ->searchable(),
+
                 TextColumn::make('booking_trx_id')
                 ->searchable(),
+
                 IconColumn::make('is_paid')
                 ->boolean()
                 ->trueColor('success')
@@ -127,9 +131,13 @@ class BookingTransactionResource extends Resource
             ])
             ->filters([
                 //
+                SelectFilter::make('ticket_id')
+                ->label('Ticket')
+                ->relationship('ticket', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
