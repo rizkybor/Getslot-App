@@ -4,8 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TicketPhoto extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    // masss assignment;
+    protected $fillable = [
+        'photo',
+        'ticket_id',
+    ];
 }
