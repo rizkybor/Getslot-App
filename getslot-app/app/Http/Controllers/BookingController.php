@@ -20,9 +20,7 @@ class BookingController extends Controller
 
     public function booking(Ticket $ticket)
     {
-        // return view('front.booking', [
-        //     'ticket' => $ticket
-        // ]);
+        return view('front.booking', compact('ticket'));
     }
 
     public function bookingStore(Ticket $ticket, StoreBookingRequest $request)
@@ -32,6 +30,8 @@ class BookingController extends Controller
         $totals = $this->bookingService->calculateTotals($ticket->id, $validateData['total_participant']);
         $this->bookingService->storeBookingInSession($ticket, $validateData, $totals);
 
+        $booking = session()->get('booking');
+        
         return redirect()->route('front.payment');
     }
 
