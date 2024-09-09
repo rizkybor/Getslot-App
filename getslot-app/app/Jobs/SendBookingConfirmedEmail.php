@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Mail;
 class SendBookingConfirmedEmail implements ShouldQueue
 {
     use Queueable;
-
     protected $booking;
 
     /**

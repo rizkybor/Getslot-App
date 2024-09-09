@@ -98,7 +98,7 @@
                         <img src="{{asset('assets/images/logos/bca.svg')}}" class="h-full w-full object-contain" alt="bank logo">
                     </div>
                     <div>
-                        <p class="font-semibold">JuaraTiket Indonesia</p>
+                        <p class="font-semibold">Getslot Indonesia</p>
                         <p>8008129839</p>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         <img src="{{asset('assets/images/logos/mandiri.svg')}}" class="h-full w-full object-contain" alt="bank logo">
                     </div>
                     <div>
-                        <p class="font-semibold">JuaraTiket Indonesia</p>
+                        <p class="font-semibold">Getslot Indonesia</p>
                         <p>12379834983281</p>
                     </div>
                 </div>
