@@ -179,7 +179,7 @@
                     </a>
                 </li>
                 <li class=" text-[#13181D]">
-                    <a href="check-booking.html" class="menu">
+                    <a href="{{ route('front.check_booking') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current"
