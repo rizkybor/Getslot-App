@@ -7,6 +7,9 @@ use App\Http\Controllers\BookingController;
 Route::get('/', [FrontController::class, 'index'])
 ->name('front.index');
 
+Route::get('/explore/{seller:slug}', [FrontController::class, 'explore'])
+->name('front.seller');
+
 Route::get('/browse/{category:slug}', [FrontController::class, 'category'])
 ->name('front.category');
 Route::get('/details/{ticket:slug}', [FrontController::class, 'details'])
