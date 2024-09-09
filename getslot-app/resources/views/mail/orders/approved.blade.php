@@ -1,10 +1,9 @@
 <x-mail::message>
-# Introduction
+Hi {{ $booking->name }}, pesanan anda dengan kode booking {{ $booking->booking_trx_id }} telah berhasil!
+Silakan datang saat Technical Meeting untuk mengambil Racepack dengan menunjukkan kode booking anda.
 
-The body of your message.
-
-<x-mail::button :url="''">
-Button Text
+<x-mail::button :url="route('front.check_booking')">
+Contact CS
 </x-mail::button>
 
 Thanks,<br>

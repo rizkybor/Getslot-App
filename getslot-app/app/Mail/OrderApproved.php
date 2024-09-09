@@ -12,13 +12,14 @@ use Illuminate\Queue\SerializesModels;
 class OrderApproved extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $booking;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($bookingTransaction)
     {
         //
+        $this->booking = $bookingTransaction;
     }
 
     /**
@@ -27,7 +28,7 @@ class OrderApproved extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Approved',
+            subject: 'Getslot: Order Approved',
         );
     }
 
