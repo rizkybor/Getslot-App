@@ -44,7 +44,7 @@ npm install
 cp .env.example .env
 ```
 
-# Adjust the values in the .env file, such as database configuration, email services, and others.
+Adjust the values in the .env file, such as database configuration, email services, and others.
 
 # 4. Generate Application Key
 ```
@@ -71,7 +71,7 @@ npm run prod
 php artisan serve
 ```
 
-# Access the application at http://localhost:8000
+Access the application at http://localhost:8000
 
 # Lisensi
 
