@@ -58,8 +58,7 @@ class SellerResource extends Resource
                 TextColumn::make('name')
                 ->searchable(),
 
-                ImageColumn::make('photo')
-                ->circular(),
+                ImageColumn::make('photo'),
             ])
             ->filters([
                 //
