@@ -1,4 +1,4 @@
-Getslot App - Ticketing Portal
+# Getslot App - Ticketing Portal
 
 getslot adalah portal ticketing yang dirancang untuk mempermudah pengelolaan tiket acara, reservasi, dan manajemen peserta. Portal ini menawarkan solusi yang efisien dan user-friendly untuk penyelenggara acara dalam mengatur dan melacak penjualan tiket, mengelola peserta, serta memberikan kemudahan dalam pembuatan laporan.
 
@@ -25,7 +25,6 @@ Cara Penginstalan
 
 Berikut adalah langkah-langkah untuk menginstal dan menjalankan proyek “getslot”:
 
-``
 
 # 1. Clone Repository
 ```
