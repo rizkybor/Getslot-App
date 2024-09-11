@@ -29,12 +29,26 @@ class Ticket extends Model
         'close_time_at',
         'category_id',
         'seller_id',
+        'type_id',
+        'benefit_id',
+        'event_date',
+        'like'
     ];
 
     // Ketika 1 Kategori memiliki banyak Ticket
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class, 'type_id');
+    }
+
+    public function benefit(): BelongsTo
+    {
+        return $this->belongsTo(Benefit::class, 'benefit_id');
     }
 
     // Ketika 1 Seller memiliki banyak Ticket

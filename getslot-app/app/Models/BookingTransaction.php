@@ -44,4 +44,9 @@ class BookingTransaction extends Model
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');
     }
+
+    public function participant(): BelongsTo
+    {
+        return $this->belongsTo(Participant::class, 'participant_id');
+    }
 }
