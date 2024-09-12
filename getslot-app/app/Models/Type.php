@@ -17,12 +17,12 @@ class Type extends Model
         'description',
         'slug',
         'icon',
-        'class_id'
+        'initial_id'
     ];
 
     public function classes(): BelongsTo
     {
-        return $this->belongsTo(Classes::class, 'class_id');
+        return $this->belongsTo(Initial::class, 'initial_id');
     }
 
     public function tickets(): HasMany

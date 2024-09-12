@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('icon');
-            $table->foreignId('class_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('initial_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

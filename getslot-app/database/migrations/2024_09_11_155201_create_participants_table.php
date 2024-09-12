@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('participant_name');
             $table->string('identity_user');
             $table->string('contingen');
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('initial_id');
             $table->unsignedBigInteger('type_id');
             $table->timestamps();
         });

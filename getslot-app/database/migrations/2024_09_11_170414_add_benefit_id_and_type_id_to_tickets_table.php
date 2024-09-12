@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             //
-            $table->foreignId('type_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('benefit_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('benefit_id')->constrained()->cascadeOnDelete();
             $table->string('like');
-            $table->date('event_date')->nullable();
+            $table->date('event_date');
         });
     }
 

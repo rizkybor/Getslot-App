@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('booking_transactions', function (Blueprint $table) {
             //
-            $table->foreignId('participant_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('participant_id')->constrained()->cascadeOnDelete();
         });
     }
 
