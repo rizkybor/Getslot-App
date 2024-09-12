@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Select;
+
 
 class TypeResource extends Resource
 {
@@ -21,11 +23,18 @@ class TypeResource extends Resource
 
     protected static ?string $navigationGroup = 'Management';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
+                Select::make('initial_id')
+                ->relationship('initial', 'name')
+                ->searchable()
+                ->preload()
+                ->required(),
             ]);
     }
 
