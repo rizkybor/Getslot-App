@@ -23,7 +23,6 @@ class Ticket extends Model
         'thumbnail',
         'address',
         'path_video',
-        'price',
         'is_popular',
         'about',
         'open_time_at',
@@ -42,14 +41,14 @@ class Ticket extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function type(): BelongsToMany
-    {
-        return $this->belongsToMany(Type::class, 'ticket_type', 'ticket_id', 'type_id');
-    }
-
     public function benefit(): BelongsToMany
     {
-        return $this->belongsToMany(Benefit::class, 'ticket_benefit', 'ticket_id', 'benefit_id');
+        return $this->belongsToMany(Benefit::class, 'ticket_benefit');
+    }
+
+    public function type(): BelongsToMany
+    {
+        return $this->belongsToMany(Type::class, 'ticket_type');
     }
 
     // Ketika 1 Seller memiliki banyak Ticket

@@ -29,7 +29,7 @@ class Type extends Model
 
     public function ticket(): BelongsToMany
     {
-        return $this->belongsToMany(Ticket::class, 'ticket_type', 'type_id', 'ticket_id');
+        return $this->belongsToMany(Ticket::class, 'ticket_type');
     }
 
     public function setNameAttribute($value){

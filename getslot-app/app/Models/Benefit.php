@@ -23,7 +23,7 @@ class Benefit extends Model
 
     public function ticket(): BelongsToMany
     {
-        return $this->belongsToMany(Ticket::class, 'ticket_benefit', 'benefit_id', 'ticket_id');
+        return $this->belongsToMany(Ticket::class, 'ticket_benefit');
     }
 
     public function setNameAttribute($value){

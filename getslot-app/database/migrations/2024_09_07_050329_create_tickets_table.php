@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('address');
             $table->string('thumbnail');
             $table->string('path_video');
-            $table->unsignedBigInteger('price');
             $table->boolean('is_popular');
             $table->text('about');
             $table->time('open_time_at');
