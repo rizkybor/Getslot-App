@@ -6,6 +6,7 @@ use App\Filament\Resources\BookingTransactionResource\Pages;
 use App\Filament\Resources\BookingTransactionResource\RelationManagers;
 use App\Jobs\SendBookingApprovedEmail;
 use App\Models\BookingTransaction;
+use App\Models\Initial;
 use App\Models\Ticket;
 use App\Models\Type;
 use Filament\Forms;
@@ -51,7 +52,7 @@ class BookingTransactionResource extends Resource
             ->schema([
                 //
                 Wizard::make([
-                    Step::make('Product and Price')->schema([
+                    Step::make('Ticket Amount')->schema([
                         Select::make('ticket_id')
                             ->relationship('ticket', 'name')
                             ->searchable()
@@ -63,47 +64,18 @@ class BookingTransactionResource extends Resource
                                 // $set('price', $ticket ? $ticket->price : 0);
 
                                 // Get Type by Id Ticket
-                                $ticket = Ticket::with('type')->find($state);
-                                if ($ticket && $ticket->type->isNotEmpty()) {
-                                    $types = $ticket->type->pluck('name', 'id')->toArray();
-                                    $set('option_type', $types);
-                                } else {
-                                    $set('option_type', []);
-                                }
+                                // $ticket = Ticket::with('type')->find($state);
+
+                                // $test = Type::with('initial')->find($ticket->type);
+
+                                // if ($ticket && $ticket->type->isNotEmpty()) {
+                                //     $types = $ticket->type->pluck('name', 'id')->toArray();
+                                //     $set('type_id', $types);
+                                // } else {
+                                //     $set('type_id', []);
+                                // }
+
                             }),
-
-                        Select::make('type_id')
-                            ->label('NON REPEATER')
-                            ->options(function (callable $get) {
-                                $optionType = $get('option_type');
-                                dump('Option Type:', $optionType);
-                                if (is_array($optionType) && !empty($optionType)) {
-                                    return $optionType;
-                                }
-                                return [];
-                            })
-                            ->live()
-                            ->required()
-                            ->reactive(),
-
-
-                        Repeater::make('participants')
-                            ->schema([
-                                Select::make('type_id')
-                                    ->label('WITH REPEATER')
-                                    ->options(function (callable $get) {
-                                        $optionType = $get('option_type');
-                                        dump('Option Type:', $optionType);
-                                        if (is_array($optionType) && !empty($optionType)) {
-                                            return $optionType;
-                                        }
-                                        return [];
-                                    })
-                                    ->live()
-                                    ->required()
-                                    ->reactive(),
-                            ]),
-
 
                         TextInput::make('total_participant')
                             ->required()
@@ -118,16 +90,9 @@ class BookingTransactionResource extends Resource
 
                                 $set('total_amount', $totalAmount);
                             }),
-
-                        // TextInput::make('total_amount')
-                        //     ->required()
-                        //     ->numeric()
-                        //     ->prefix('IDR')
-                        //     ->readOnly()
-                        //     ->helperText('Harga sudah include PPN 11%')
                     ]),
 
-                    Step::make('Customer Information')->schema([
+                    Step::make('Booker Information')->schema([
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
@@ -140,38 +105,45 @@ class BookingTransactionResource extends Resource
                         TextInput::make('booking_trx_id')
                             ->required()
                             ->maxLength(255),
+
                     ]),
 
-                    Step::make('Participant Information')->schema([
+                    Step::make('Participant Registration')->schema([
+                        TextInput::make('total_amount')
+                            ->required()
+                            ->disabled()
+                            ->numeric()
+                            ->prefix('IDR')
+                            ->readOnly()
+                            ->helperText('Harga sudah include PPN 11%'),
+
                         Repeater::make('participants')
                             ->schema([
                                 TextInput::make('participant_name')
-                                    ->label('Nama Peserta')
+                                    ->label('Participant Name')
                                     ->required()
                                     ->maxLength(255),
 
                                 TextInput::make('identity_user')
-                                    ->label('Identitas Pengguna')
+                                    ->label('Identity Number')
                                     ->required()
                                     ->maxLength(255),
 
                                 TextInput::make('contingen')
-                                    ->label('Kontingen')
+                                    ->label('Contingen')
                                     ->required()
                                     ->maxLength(255),
 
 
                                 Select::make('type_id')
-                                    ->label('Tipe Lomba')
-                                    ->options(function (callable $get) {
-                                        $optionType = $get('option_type');
-                                        dump('Option Type:', $optionType);
-                                        if (is_array($optionType) && !empty($optionType)) {
-                                            return $optionType;
-                                        }
-                                        return [];
-                                    })
-                                    ->live()
+                                    ->label('Type')
+                                    ->options(Type::query()->pluck('name', 'id'))
+                                    ->required()
+                                    ->reactive(),
+
+                                Select::make('initial_id')
+                                    ->label('Class')
+                                    ->options(Initial::query()->pluck('name', 'id'))
                                     ->required()
                                     ->reactive(),
                             ])
@@ -179,6 +151,8 @@ class BookingTransactionResource extends Resource
                             ->minItems(fn(callable $get) => is_numeric($get('total_participant')) ? (int) $get('total_participant') : 0)
                             ->maxItems(fn(callable $get) => is_numeric($get('total_participant')) ? (int) $get('total_participant') : null)
                             ->columns(1)
+                            ->grid(2)
+                            ->collapsed()
                     ]),
 
                     Step::make('Payment Information')->schema([
