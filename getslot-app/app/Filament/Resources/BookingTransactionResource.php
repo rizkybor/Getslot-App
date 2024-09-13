@@ -7,6 +7,7 @@ use App\Filament\Resources\BookingTransactionResource\RelationManagers;
 use App\Jobs\SendBookingApprovedEmail;
 use App\Models\BookingTransaction;
 use App\Models\Ticket;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -24,6 +25,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Filament\Forms\Components\CheckboxList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Repeater;
@@ -59,23 +61,49 @@ class BookingTransactionResource extends Resource
                             ->afterStateUpdated(function ($state, callable $set) {
                                 // $ticket = Ticket::find($state);
                                 // $set('price', $ticket ? $ticket->price : 0);
-                                
 
-                                // coba disini 
+                                // Get Type by Id Ticket
                                 $ticket = Ticket::with('type')->find($state);
-
                                 if ($ticket && $ticket->type->isNotEmpty()) {
                                     $types = $ticket->type->pluck('name', 'id')->toArray();
-                                    $set('available_types', $types); // Menyimpan tipe yang tersedia ke state form
+                                    $set('option_type', $types);
                                 } else {
-                                    $set('available_types', []); // Reset jika tidak ada tipe yang ditemukan
+                                    $set('option_type', []);
                                 }
-                        
-                                $set('selected_ticket_id', $state);
-                        
-                                // Debugging
-                                dump($state, $ticket->type);
                             }),
+
+                        Select::make('type_id')
+                            ->label('NON REPEATER')
+                            ->options(function (callable $get) {
+                                $optionType = $get('option_type');
+                                dump('Option Type:', $optionType);
+                                if (is_array($optionType) && !empty($optionType)) {
+                                    return $optionType;
+                                }
+                                return [];
+                            })
+                            ->live()
+                            ->required()
+                            ->reactive(),
+
+
+                        Repeater::make('participants')
+                            ->schema([
+                                Select::make('type_id')
+                                    ->label('WITH REPEATER')
+                                    ->options(function (callable $get) {
+                                        $optionType = $get('option_type');
+                                        dump('Option Type:', $optionType);
+                                        if (is_array($optionType) && !empty($optionType)) {
+                                            return $optionType;
+                                        }
+                                        return [];
+                                    })
+                                    ->live()
+                                    ->required()
+                                    ->reactive(),
+                            ]),
+
 
                         TextInput::make('total_participant')
                             ->required()
@@ -132,24 +160,24 @@ class BookingTransactionResource extends Resource
                                     ->required()
                                     ->maxLength(255),
 
+
                                 Select::make('type_id')
                                     ->label('Tipe Lomba')
                                     ->options(function (callable $get) {
-                                        $ticketId = $get('selected_ticket_id');
-                                        logger($ticketId);
-                                        $ticket = Ticket::with('type')->find($ticketId);
-                    
-                                        if ($ticket && $ticket->type) {
-                                            return $ticket->type->pluck('name', 'id')->toArray();
+                                        $optionType = $get('option_type');
+                                        dump('Option Type:', $optionType);
+                                        if (is_array($optionType) && !empty($optionType)) {
+                                            return $optionType;
                                         }
-                    
                                         return [];
                                     })
-                                    ->required(),
-                    
+                                    ->live()
+                                    ->required()
+                                    ->reactive(),
                             ])
+                            ->createItemButtonLabel('Add Participant')
                             ->minItems(fn(callable $get) => is_numeric($get('total_participant')) ? (int) $get('total_participant') : 0)
-                            ->maxItems(fn(callable $get) => is_numeric($get('total_participant')) ? (int) $get('total_participant') : null) // Menangani nilai kosong
+                            ->maxItems(fn(callable $get) => is_numeric($get('total_participant')) ? (int) $get('total_participant') : null)
                             ->columns(1)
                     ]),
 
