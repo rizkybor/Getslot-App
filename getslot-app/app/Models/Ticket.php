@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Seller;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Ticket extends Model
@@ -41,14 +42,14 @@ class Ticket extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function type(): BelongsTo
+    public function type(): BelongsToMany
     {
-        return $this->belongsTo(Type::class, 'type_id');
+        return $this->belongsToMany(Type::class, 'ticket_type', 'ticket_id', 'type_id');
     }
 
-    public function benefit(): BelongsTo
+    public function benefit(): BelongsToMany
     {
-        return $this->belongsTo(Benefit::class, 'benefit_id');
+        return $this->belongsToMany(Benefit::class, 'ticket_benefit', 'ticket_id', 'benefit_id');
     }
 
     // Ketika 1 Seller memiliki banyak Ticket

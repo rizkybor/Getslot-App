@@ -27,9 +27,9 @@ class Type extends Model
         return $this->belongsToMany(Initial::class, 'initial_type', 'type_id', 'initial_id');
     }
 
-    public function ticket(): HasMany
+    public function ticket(): BelongsToMany
     {
-        return $this->hasMany(Ticket::class);
+        return $this->belongsToMany(Ticket::class, 'ticket_type', 'type_id', 'ticket_id');
     }
 
     public function setNameAttribute($value){

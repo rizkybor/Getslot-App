@@ -23,6 +23,8 @@ return new class extends Migration
             $table->text('about');
             $table->time('open_time_at');
             $table->time('close_time_at');
+            $table->string('like');
+            $table->date('event_date');
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('seller_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();

@@ -70,10 +70,10 @@ class TicketResource extends Resource
                         ->required()
                         ->maxLength(255),
                         
-                        TextInput::make('price')
-                        ->required()
-                        ->numeric()
-                        ->prefix('IDR'),
+                        // TextInput::make('price')
+                        // ->required()
+                        // ->numeric()
+                        // ->prefix('IDR'),
                         
                         Select::make('is_popular')
                         ->options([
@@ -90,6 +90,19 @@ class TicketResource extends Resource
 
                         Select::make('seller_id')
                         ->relationship('seller', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                        Select::make('type_id')
+                        ->multiple()
+                        ->relationship('type', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                        Select::make('benefit_id')
+                        ->relationship('benefit', 'name')
                         ->searchable()
                         ->preload()
                         ->required(),

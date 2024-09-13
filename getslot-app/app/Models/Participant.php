@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,8 +21,8 @@ class Participant extends Model
         'type_id'
     ];
 
-    public function booking_transaction(): HasMany
+    public function booking_transaction(): BelongsTo
     {
-        return $this->hasMany(BookingTransaction::class);
+        return $this->belongsTo(BookingTransaction::class);
     }
 }

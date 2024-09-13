@@ -52,7 +52,7 @@ class BenefitResource extends Resource
             ->columns([
                 //
                 TextColumn::make('name')->searchable(),
-                ImageColumn::make('thumbnail'),
+                ImageColumn::make('icon'),
 
             ])
             ->filters([
