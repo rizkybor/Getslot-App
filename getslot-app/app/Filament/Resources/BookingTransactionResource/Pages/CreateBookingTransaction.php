@@ -21,6 +21,13 @@ class CreateBookingTransaction extends CreateRecord
         $this->participants = $data['participants'] ?? [];
         unset($data['participants']);
 
+        // Validasi setiap participant untuk memastikan `initial_id` ada
+        foreach ($this->participants as $participant) {
+            if (empty($participant['initial_id'])) {
+                throw new \Exception('Initial ID is required for each participant.');
+            }
+        }
+
         // Hitung total_amount berdasarkan participants
         $data['total_amount'] = collect($this->participants)->sum(function ($participant) {
             $initial = Initial::find($participant['initial_id']);
@@ -36,17 +43,23 @@ class CreateBookingTransaction extends CreateRecord
     }
 
     protected function handleRecordCreation(array $data): Model
-    {
-        // Buat BookingTransaction
-        $bookingTransaction = $this->getModel()::create($data);
+{
+    // Buat BookingTransaction
+    $bookingTransaction = $this->getModel()::create($data);
 
-        // Tangani Participants
-        if (!empty($this->participants)) {
-            foreach ($this->participants as $participant) {
-                $bookingTransaction->participants()->create($participant);
+    // Tangani Participants
+    if (!empty($this->participants)) {
+        foreach ($this->participants as $participant) {
+            // Pastikan `initial_id` ada dalam data participant
+            if (!isset($participant['initial_id']) || empty($participant['initial_id'])) {
+                throw new \Exception('Initial ID is required for each participant.');
             }
-        }
 
-        return $bookingTransaction;
+            // Simpan participant dengan initial_id yang valid
+            $bookingTransaction->participants()->create($participant);
+        }
     }
+
+    return $bookingTransaction;
+}
 }

@@ -17,7 +17,7 @@ class Participant extends Model
         'participant_name',
         'identity_user',
         'contingen',
-        'inital_id',
+        'initial_id',
         'type_id'
     ];
 
