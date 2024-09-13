@@ -13,6 +13,10 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 
 
 class TypeResource extends Resource
@@ -30,10 +34,19 @@ class TypeResource extends Resource
         return $form
             ->schema([
                 //
+                TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+
                 Select::make('initial_id')
+                ->multiple()
                 ->relationship('initial', 'name')
                 ->searchable()
                 ->preload()
+                ->required(),
+
+                FileUpload::make('icon')
+                ->image()
                 ->required(),
             ]);
     }
@@ -43,12 +56,17 @@ class TypeResource extends Resource
         return $table
             ->columns([
                 //
+                TextColumn::make('name')
+                ->searchable(),
+
+                ImageColumn::make('icon'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

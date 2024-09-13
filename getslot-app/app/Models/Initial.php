@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -19,9 +20,9 @@ class Initial extends Model
         'price'
     ];
 
-    public function type(): HasMany
+    public function type(): BelongsToMany
     {
-        return $this->hasMany(Type::class);
+        return $this->belongsToMany(Type::class, 'initial_type', 'initial_id', 'type_id');
     }
 
     public function setNameAttribute($value){
