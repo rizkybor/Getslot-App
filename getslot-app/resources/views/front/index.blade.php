@@ -112,7 +112,7 @@
                 <div class="flex flex-col gap-3">
 
                     @forelse($newTickets as $itemNewTicket)
-                    <a href="details.html" class="card">
+                    <a href="{{ route('front.details', $itemNewTicket->slug) }}" class="card">
                         <div
                             class="flex items-center justify-between rounded-3xl p-[6px] pr-[14px] bg-white overflow-hidden">
                             <div class="flex items-center gap-[14px]">
@@ -127,7 +127,7 @@
                                             class="w-[18px] h-[18px]" alt="icon">
                                         <p class="font-semibold text-xs leading-[18px]">{{ $itemNewTicket->seller->name }}</p>
                                     </div>
-                                    <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp. {{ number_format($itemNewTicket->price, 0, '.', ',') }}</p>
+                                    {{-- <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp. {{ number_format($itemNewTicket->price, 0, '.', ',') }}</p> --}}
                                 </div>
                             </div>
                             <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
@@ -143,10 +143,11 @@
                 </div>
             </section>
         </main>
+
         <nav id="Bottom-Nav" class="fixed bottom-0 w-full max-w-[640px] bg-white px-4 py-5 z-30">
             <ul class="flex justify-evenly max-[400px]:justify-between">
                 <li class=" text-[#F97316]">
-                    <a href="index.html" class="menu">
+                    <a href="" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current"
@@ -202,7 +203,7 @@
                     </a>
                 </li>
                 <li class=" text-[#13181D]">
-                    <a href="" class="menu">
+                    <a href="{{ route('front.result') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current"
@@ -222,12 +223,12 @@
                             </div>
                             <p
                                 class="font-semibold text-sm leading-[21px] transition-all duration-300 group-hover:text-[#F97316] text-current">
-                                Rewards</p>
+                                Result</p>
                         </div>
                     </a>
                 </li>
                 <li class=" text-[#13181D]">
-                    <a href="" class="menu">
+                    <a href="{{ route('front.support') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current"

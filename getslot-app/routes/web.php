@@ -33,6 +33,14 @@ Route::post('/booking/{ticket:slug}', [BookingController::class, 'bookingStore']
 Route::get('/booking/finished/{bookingTransaction}', [BookingController::class, 'bookingFinished'])
 ->name('front.booking_finished');
 
+Route::get('/support', function () {
+    return view('front.support');
+})->name('front.support');
+
+Route::get('/result', function () {
+    return view('front.result');
+})->name('front.result');
+
 
 
 

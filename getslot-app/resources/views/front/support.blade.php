@@ -13,8 +13,9 @@
             <form method="POST" action="{{ route('front.check_booking_details') }}" class="flex flex-col w-[329px] shrink-0 rounded-[30px] p-5 gap-6 bg-white">
                 @csrf
                 <img src="{{asset('assets/images/icons/ticket-star.svg')}}" class="w-20 h-20 mx-auto" alt="icon">
-                <h1 class="font-bold text-2xl leading-9 text-center">View Your Tickets</h1>
-                <div class="flex flex-col gap-[6px]">
+                <h5 class="font-bold text-2xl leading-9 text-center">Support Page</h5>
+                <h1 class="font-bold text-2xl leading-9 text-center">Under Development</h1>
+                {{-- <div class="flex flex-col gap-[6px]">
                     <label for="bookId" class="font-semibold text-sm leading-[21px]">Booking ID</label>
                     <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
                         <img src="{{asset('assets/images/icons/user-octagon.svg')}}" class="w-6 h-6" alt="icon">
@@ -30,7 +31,7 @@
                 </div>
                 <button type="submit" class="w-full rounded-full p-[14px_20px] text-white text-center bg-[#F97316] font-bold">
                     Find Now
-                </button>
+                </button> --}}
             </form>
         </main>
 
@@ -56,8 +57,8 @@
                         </div>
                     </a>
                 </li>
-                <li class=" text-[#F97316]">
-                    <a href="check-booking.html" class="menu">
+                <li class="text-[#13181D]">
+                    <a href="{{ route('front.check_booking') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +72,7 @@
                         </div>
                     </a>
                 </li>
-                <li class=" text-[#13181D]">
+                <li class="text-[#13181D]">
                     <a href="{{ route('front.result') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
@@ -87,8 +88,8 @@
                         </div>
                     </a>
                 </li>
-                <li class=" text-[#13181D]">
-                    <a href="{{ route('front.support') }}" class="menu">
+                <li class="text-[#F97316] ">
+                    <a href="" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
