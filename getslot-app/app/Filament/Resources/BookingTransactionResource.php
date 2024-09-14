@@ -78,8 +78,17 @@ class BookingTransactionResource extends Resource
                             ->required()
                             ->maxLength(255),
                         TextInput::make('booking_trx_id')
+                            ->label('Booking Code Autofilled')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->readonly()
+                            ->default(fn () => BookingTransaction::generateSequentialTrxId())
+                            ->afterStateHydrated(function (TextInput $component, $state, $set, $record) {
+                                // Jika form sedang dalam mode create (tidak ada $record), generate ID
+                                if (!$record) {
+                                    $set('booking_trx_id', BookingTransaction::generateSequentialTrxId());
+                                }
+                            }),
                     ]),
 
                     Step::make('Participant Registration')->schema([
@@ -199,8 +208,6 @@ class BookingTransactionResource extends Resource
                 Tables\Actions\Action::make('approve')
                     ->label('Approve')
                     ->action(function (BookingTransaction $record) {
-                        dump('Data before saving:', $record->toArray());
-
                         $record->is_paid = true;
                         $record->save();
 
