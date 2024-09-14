@@ -16,7 +16,7 @@
     <div class="relative flex flex-col w-full min-h-screen max-w-[640px] mx-auto bg-white">
         <div id="Top-Nav" class="flex items-center justify-between w-full px-4 mt-[60px]">
             <a href="index.html">
-                <img src="{{ asset('assets/images/logos/logo.svg') }}" class="flex shrink-0" alt="logo">
+                <img src="{{ asset('assets/images/logos/logo-getslot.svg') }}" style="width: 120px; height: auto" class="flex shrink-0" alt="logo">
             </a>
             <a href="#">
                 <img src="{{ asset('assets/images/icons/heart-fill.svg') }}" class="w-12 h-12" alt="icon">
