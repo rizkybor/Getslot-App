@@ -22,7 +22,7 @@ class Initial extends Model
 
     public function type(): BelongsToMany
     {
-        return $this->belongsToMany(Type::class, 'initial_type', 'initial_id', 'type_id');
+        return $this->belongsToMany(Type::class, 'initial_types', 'initial_id', 'type_id');
     }
 
     public function setNameAttribute($value){

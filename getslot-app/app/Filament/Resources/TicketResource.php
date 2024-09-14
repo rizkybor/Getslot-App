@@ -92,14 +92,15 @@ class TicketResource extends Resource
                         ->preload()
                         ->required(),
 
-                        BelongsToManyMultiSelect::make('type_id')
+                        Select::make('type_id')
                         ->multiple()
                         ->relationship('type', 'name')
                         ->searchable()
                         ->preload()
                         ->required(),
 
-                        BelongsToManyMultiSelect::make('benefit_id')
+                        Select::make('benefit_id')
+                        ->multiple()
                         ->relationship('benefit', 'name')
                         ->searchable()
                         ->preload()

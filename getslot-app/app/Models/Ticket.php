@@ -43,12 +43,12 @@ class Ticket extends Model
 
     public function benefit(): BelongsToMany
     {
-        return $this->belongsToMany(Benefit::class, 'ticket_benefit');
+        return $this->belongsToMany(Benefit::class, 'ticket_benefits')->withPivot('created_at', 'updated_at');
     }
 
     public function type(): BelongsToMany
     {
-        return $this->belongsToMany(Type::class, 'ticket_type');
+        return $this->belongsToMany(Type::class, 'ticket_types')->withPivot('created_at', 'updated_at');;
     }
 
     // Ketika 1 Seller memiliki banyak Ticket
@@ -64,7 +64,8 @@ class Ticket extends Model
     }
 
     // for SEO untuk setiap data yang memiliki Slug
-    public function setNameAttribute($value){
+    public function setNameAttribute($value)
+    {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }

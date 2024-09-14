@@ -80,7 +80,6 @@ class BookingTransactionResource extends Resource
                         TextInput::make('booking_trx_id')
                             ->required()
                             ->maxLength(255),
-
                     ]),
 
                     Step::make('Participant Registration')->schema([
@@ -115,19 +114,10 @@ class BookingTransactionResource extends Resource
                                     ->required()
                                     ->reactive()
                                     ->afterStateUpdated(function ($state, callable $get, callable $set) {
-                                        // Get the current price of the selected Initial
-                                        $initial = Initial::find($state);
-                                        $price = $initial ? $initial->price : 0;
-                    
-                                        // Update the total amount by recalculating it based on the form state
-                                        $participants = $get('participants');
-                                        $totalAmount = collect($participants)->sum(function ($participant) {
-                                            $initial = Initial::find($participant['initial_id']);
-                                            return $initial ? $initial->price : 0;
-                                        });
-                    
-                                        // Set the new total amount
-                                        $set('total_amount', $totalAmount);
+                                        $price = Initial::find($state)?->price ?? 0;
+                                        $currentTotal = $get('total_amount') ?? 0;
+                                        $newAmount = $currentTotal + $price;
+                                        $set('total_amount', $newAmount);
                                     }),
                             ])
                             ->createItemButtonLabel('Add Participant')
@@ -136,26 +126,27 @@ class BookingTransactionResource extends Resource
                             ->columns(1)
                             ->grid(2)
                             ->collapsed()
-                            ->afterStateUpdated(function (array $state, callable $get, callable $set) {
-                                // Recalculate total amount when any participant is added or removed
-                                $participants = $get('participants');
-                                $totalAmount = collect($participants)->sum(function ($participant) {
-                                    $initial = Initial::find($participant['initial_id']);
-                                    return $initial ? $initial->price : 0;
-                                });
-                    
-                                // Set the new total amount
+                            ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                                $totalAmount = 0;
+                                foreach ($state as $participant) {
+                                    $initialId = $participant['initial_id'] ?? null;
+                                    if ($initialId) {
+                                        $price = Initial::find($initialId)?->price ?? 0;
+                                        $totalAmount += $price;
+                                    }
+                                }
                                 $set('total_amount', $totalAmount);
                             }),
-                            TextInput::make('total_amount')
+                    ]),
+                    Step::make('Payment Information')->schema([
+                        TextInput::make('total_amount')
                             ->required()
-                            ->disabled()
                             ->numeric()
                             ->prefix('IDR')
                             ->readOnly()
+                            ->dehydrated(fn ($state) => $state !== null)
                             ->helperText('Harga sudah include PPN 11%'),
-                    ]),
-                    Step::make('Payment Information')->schema([
+
                         ToggleButtons::make('is_paid')
                             ->label('Apakah sudah membayar ?')
                             ->boolean()
@@ -208,6 +199,8 @@ class BookingTransactionResource extends Resource
                 Tables\Actions\Action::make('approve')
                     ->label('Approve')
                     ->action(function (BookingTransaction $record) {
+                        dump('Data before saving:', $record->toArray());
+
                         $record->is_paid = true;
                         $record->save();
 

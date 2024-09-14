@@ -24,12 +24,12 @@ class Type extends Model
 
     public function initial(): BelongsToMany
     {
-        return $this->belongsToMany(Initial::class, 'initial_type', 'type_id', 'initial_id');
+        return $this->belongsToMany(Initial::class, 'initial_types', 'type_id', 'initial_id')->withPivot('created_at', 'updated_at');
     }
 
     public function ticket(): BelongsToMany
     {
-        return $this->belongsToMany(Ticket::class, 'ticket_type');
+        return $this->belongsToMany(Ticket::class, 'ticket_types');
     }
 
     public function setNameAttribute($value){
