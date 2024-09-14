@@ -46,8 +46,13 @@ class BookingTransaction extends Model
         return $this->belongsTo(Ticket::class, 'ticket_id');
     }
 
-    public function participants(): HasMany
+    // public function participants(): HasMany
+    // {
+    //     return $this->hasMany(Participant::class);
+    // }
+    
+    public function bookingParticipant(): HasMany
     {
-        return $this->hasMany(Participant::class);
+        return $this->hasMany(BookingParticipant::class);
     }
 }

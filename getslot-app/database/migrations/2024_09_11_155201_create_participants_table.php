@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('contingen');
             $table->unsignedBigInteger('initial_id');
             $table->unsignedBigInteger('type_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

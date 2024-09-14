@@ -84,7 +84,8 @@ class BookingTransactionResource extends Resource
                     ]),
 
                     Step::make('Participant Registration')->schema([
-                        Repeater::make('participants')
+                        Repeater::make('bookingParticipant')
+                        ->relationship('bookingParticipant')
                             ->schema([
                                 TextInput::make('participant_name')
                                     ->label('Participant Name')
@@ -154,15 +155,6 @@ class BookingTransactionResource extends Resource
                             ->readOnly()
                             ->helperText('Harga sudah include PPN 11%'),
                     ]),
-                             // ->afterStateUpdated(function ($state, callable $get, callable $set) {
-                            //     dump($state);
-                            //     // $price = $get('price');
-                            //     // $subtotal = $price * $state;
-                            //     // $totalPpn = $subtotal * 0.11;
-                            //     // $totalAmount = $subtotal + $totalPpn;
-
-                            //     // $set('total_amount', $totalAmount);
-                            // })
                     Step::make('Payment Information')->schema([
                         ToggleButtons::make('is_paid')
                             ->label('Apakah sudah membayar ?')

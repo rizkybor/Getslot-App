@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('booking_participants', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
-            $table->string('icon');
-            $table->string('icon_white');
+            $table->foreignId('booking_transaction_id')->constrained()->cascadeOnDelete();
+            $table->string('participant_name');
+            $table->string('identity_user');
+            $table->string('contingen');
+            $table->unsignedBigInteger('initial_id');
+            $table->unsignedBigInteger('type_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('booking_participants');
     }
 };
