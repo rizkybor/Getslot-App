@@ -32,8 +32,8 @@ class BookingController extends Controller
         $this->bookingService->storeBookingInSession($ticket, $validateData, $totals);
 
         $booking = session()->get('booking');
-        
-        return redirect()->route('front.payment');
+        dd($booking);
+        // return redirect()->route('front.payment');
     }
 
 

@@ -114,6 +114,11 @@
                         </button>
                     </div>
                 </div>
+
+            <div>
+                // FORM PARTICIPANT
+            </div>
+
                 <div class="flex items-center justify-between">
                     <p class="font-semibold text-sm leading-[21px]">Sub Total</p>
                     <p id="total-price" class="font-bold text-[22px] leading-[33px] text-[#F97316]"></p>
