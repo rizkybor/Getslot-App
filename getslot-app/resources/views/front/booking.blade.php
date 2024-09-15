@@ -115,9 +115,9 @@
                     </div>
                 </div>
 
-            <div>
-                // FORM PARTICIPANT
-            </div>
+                <div id="participant-forms" class="flex flex-col gap-4">
+                    <!-- Participant forms will be appended here dynamically -->
+                </div>
 
                 <div class="flex items-center justify-between">
                     <p class="font-semibold text-sm leading-[21px]">Sub Total</p>
@@ -138,4 +138,104 @@
     <script src="{{ asset('js/booking.js') }}"></script>
 </body>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const totalParticipantInput = document.getElementById('total_participant');
+    const participantFormsContainer = document.getElementById('participant-forms');
+    let previousValue = parseInt(totalParticipantInput.value);
+
+    function createParticipantForms(count) {
+        participantFormsContainer.innerHTML = ''; // Clear previous forms
+        for (let i = 0; i < count; i++) {
+            const participantForm = `
+                <div class="flex flex-col gap-2 bg-[#F8F8F9] p-4 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-lg">Participant ${i + 1}</h3>
+                        <button type="button" class="toggle-button" data-target="participant-fields-${i}">
+                             <img src="{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}" class="w-6 h-6" alt="icon">
+                        </button>
+                    </div>
+                    <div id="participant-fields-${i}" class="participant-fields">
+                        <div class="flex flex-col gap-[6px]">
+                            <label for="participant_name_${i}" class="font-semibold text-sm leading-[21px]">Full Name</label>
+                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                                <img src="{{ asset('assets/images/icons/ghost-smile.svg') }}" class="w-6 h-6" alt="icon">
+                                <input type="text" name="participants[${i}][participant_name]" id="participant_name_${i}"
+                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                    placeholder="Write your complete name">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-[6px]">
+                            <label for="identity_user_${i}" class="font-semibold text-sm leading-[21px]">Identity User</label>
+                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                                <img src="{{ asset('assets/images/icons/user-id.svg') }}" class="w-6 h-6" alt="icon">
+                                <input type="text" name="participants[${i}][identity_user]" id="identity_user_${i}"
+                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                    placeholder="Write your identity user">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-[6px]">
+                            <label for="contingen_${i}" class="font-semibold text-sm leading-[21px]">Contingen</label>
+                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                                <img src="{{ asset('assets/images/icons/share-circle.svg') }}" class="w-6 h-6" alt="icon">
+                                <input type="text" name="participants[${i}][contingen]" id="contingen_${i}"
+                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                    placeholder="Enter contingen">
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-[6px]">
+                            <label for="type_id_${i}" class="font-semibold text-sm leading-[21px]">Type ID</label>
+                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                                <img src="{{ asset('assets/images/icons/box-minimalistic.svg') }}" class="w-6 h-6" alt="icon">
+                                <input type="text" name="participants[${i}][type_id]" id="type_id_${i}"
+                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                    placeholder="Enter type ID">
+                            </div>
+                        </div>
+                           <div class="flex flex-col gap-[6px]">
+                            <label for="initial_id_${i}" class="font-semibold text-sm leading-[21px]">Initial ID</label>
+                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                                <img src="{{ asset('assets/images/icons/box-minimalistic.svg') }}" class="w-6 h-6" alt="icon">
+                                <input type="text" name="participants[${i}][initial_id]" id="initial_id_${i}"
+                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                    placeholder="Enter initial ID">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            participantFormsContainer.insertAdjacentHTML('beforeend', participantForm);
+        }
+
+        // Add event listeners to toggle buttons
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement.style.display === 'none') {
+                    targetElement.style.display = 'block';
+                    this.querySelector('img').src = "{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}"; // Change icon to collapse
+                } else {
+                    targetElement.style.display = 'none';
+                    this.querySelector('img').src = "{{ asset('assets/images/icons/maximize-square-minimalistic-up.svg') }}"; // Change icon to expand
+                }
+            });
+        });
+    }
+
+    // Initialize with the current value of total_participant
+    createParticipantForms(parseInt(totalParticipantInput.value));
+
+    // Polling method to check if the value has changed
+    setInterval(function () {
+        const currentValue = parseInt(totalParticipantInput.value);
+        if (currentValue !== previousValue) {
+            createParticipantForms(currentValue);
+            previousValue = currentValue;
+        }
+    }, 300); // Adjust the interval as necessary
+});
+</script>
 </html>
