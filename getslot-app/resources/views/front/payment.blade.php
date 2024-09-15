@@ -19,7 +19,7 @@
                     <img src="{{asset('assets/images/icons/back.svg')}}" class="w-12 h-12" alt="icon">
                 </a>
                 <a href="#">
-                    <img src="{{asset('assets/images/icons/heart.svg')}}" class="w-12 h-12" alt="icon">
+                    <img src="{{asset('assets/images/icons/bag-4-svgrepo.svg')}}" class="w-12 h-12" style="color: white" alt="icon">
                 </a>
             </div>
             <div class="flex items-center justify-center h-12 w-full shrink-0">
@@ -39,7 +39,6 @@
                             <img src="{{asset('assets/images/icons/location.svg')}}" class="w-[18px] h-[18px]" alt="icon">
                             <p class="font-semibold text-xs leading-[18px]">{{ $ticket->seller->name }}</p>
                         </div>
-                        <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp {{ number_format($ticket->price, 0, ',', '.') }}</p>
                     </div>
                 </div>
                 <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
@@ -57,13 +56,15 @@
                     <p class="font-semibold text-sm leading-[21px]">Rp {{ number_format($booking['sub_total'], 0, ',', '.') }}</p>
                 </div>
                 <div class="flex items-center justify-between">
-                    <p class="font-semibold text-sm leading-[21px]">Wajib Pajak 11%</p>
+                    <p class="font-semibold text-sm leading-[21px]">PPN 11%</p>
                     <p class="font-semibold text-sm leading-[21px]">Rp {{ number_format($booking['ppn_total'], 0, ',', '.') }}</p>
                 </div>
-                <div class="flex items-center justify-between">
+
+                {{-- if voucher available  --}}
+                {{-- <div class="flex items-center justify-between">
                     <p class="font-semibold text-sm leading-[21px]">Discount 0%</p>
                     <p class="font-semibold text-sm leading-[21px]">Rp 0</p>
-                </div>
+                </div> --}}
                 <div class="flex items-center justify-between">
                     <p class="font-semibold text-sm leading-[21px]">Insurance</p>
                     <p class="font-semibold text-sm leading-[21px]">Included 100%</p>
@@ -87,9 +88,9 @@
                         <label for="credit" class="relative group">
                             <div class="flex items-center h-full rounded-full p-[14px_12px] gap-[6px] bg-[#F8F8F9] transition-all duration-300 group-has-[:checked]:ring-1 group-has-[:checked]:ring-[#F97316]">
                                 <img src="{{asset('assets/images/icons/cards.svg')}}" class="w-6 h-6" alt="icon">
-                                <p class="font-semibold text-sm leading-[21px]">Credit Card</p>
+                                <p class="font-semibold text-sm leading-[21px]">Credit Card <span style="font-size: 10px">(belum tersedia)</span></p>
                             </div>
-                            <input type="radio" name="payment-method" id="credit" class="absolute top-1/2 left-1/2 -z-10" required>
+                            <input type="radio" name="payment-method" id="credit" class="absolute top-1/2 left-1/2 -z-10" disabled required>
                         </label>
                     </div>
                 </div>

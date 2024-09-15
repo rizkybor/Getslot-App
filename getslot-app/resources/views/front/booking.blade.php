@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="flex justify-between items-center">
                     <h3 class="font-bold text-lg">Participant ${i + 1}</h3>
                     <button type="button" class="toggle-button" data-target="participant-fields-${i}">
-                         <img src="{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}" class="w-6 h-6" alt="icon">
+                         <img src="{{ asset('assets/images/icons/square-top-down-svgrepo.svg') }}" class="w-6 h-6" alt="icon">
                     </button>
                 </div>
                 <div id="participant-fields-${i}" class="participant-fields">
@@ -257,11 +257,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (targetElement.style.display === 'none') {
                     targetElement.style.display = 'block';
                     this.querySelector('img').src =
-                        "{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}"; // Change icon to collapse
+                        "{{ asset('assets/images/icons/square-bottom-down-svgrepo.svg') }}"; // Change icon to collapse
                 } else {
                     targetElement.style.display = 'none';
                     this.querySelector('img').src =
-                        "{{ asset('assets/images/icons/maximize-square-minimalistic-up.svg') }}"; // Change icon to expand
+                        "{{ asset('assets/images/icons/square-top-down-svgrepo.svg') }}"; // Change icon to expand
                 }
             });
         });

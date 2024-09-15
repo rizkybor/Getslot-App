@@ -44,7 +44,7 @@ class BookingTransaction extends Model
 {
     // Dapatkan ID terakhir
     $lastTransaction = self::withTrashed()->latest('id')->first();
-    $prefix = 'GS';
+    $prefix = 'GS-';
     
     // Jika belum ada, mulai dari 000001
     if (!$lastTransaction) {
@@ -53,7 +53,7 @@ class BookingTransaction extends Model
         // Ambil ID terakhir, tambah 1
         $nextId = $lastTransaction->id + 1;
     }
-    $formattedId = str_pad($nextId, 6, '0', STR_PAD_LEFT);
+    $formattedId = str_pad($nextId, 4, '0', STR_PAD_LEFT);
 
     // Gabungkan prefix dengan formattedId
     return $prefix . $formattedId;
