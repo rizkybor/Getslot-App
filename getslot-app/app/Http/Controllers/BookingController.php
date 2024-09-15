@@ -7,6 +7,8 @@ use App\Http\Requests\StoreCheckBookingRequest;
 use App\Http\Requests\StorePaymentRequest;
 use App\Models\BookingTransaction;
 use App\Models\Ticket;
+use App\Models\Type;
+
 use App\Services\BookingService;
 
 class BookingController extends Controller
@@ -21,19 +23,33 @@ class BookingController extends Controller
 
     public function booking(Ticket $ticket)
     {
-        return view('front.booking', compact('ticket'));
+        $typeDetailsByTicket = $ticket->type;
+
+        return view('front.booking', compact('ticket', 'typeDetailsByTicket'));
+    }
+
+    public function getInitials($typeId)
+    {
+        $initials = Type::find($typeId)->initial()->get();
+
+        return response()->json($initials);
     }
 
     public function bookingStore(Ticket $ticket, StoreBookingRequest $request)
     {
         $validateData = $request->validated();
 
-        $totals = $this->bookingService->calculateTotals($ticket->id, $validateData['total_participant']);
+        if (!isset($validatedData['participants'])) {
+            return back()->withErrors(['participants' => 'Participants data is missing'])->withInput();
+        }
+
+        $totals = $this->bookingService->calculateTotals($validateData['participants']);
+
         $this->bookingService->storeBookingInSession($ticket, $validateData, $totals);
 
         $booking = session()->get('booking');
-        dd($booking);
-        // return redirect()->route('front.payment');
+
+        return redirect()->route('front.payment');
     }
 
 
@@ -46,9 +62,10 @@ class BookingController extends Controller
     public function paymentStore(StorePaymentRequest $request)
     {
         $validated = $request->validated();
+
         $bookingTransactionId = $this->bookingService->paymentStore($validated);
 
-        if($bookingTransactionId) {
+        if ($bookingTransactionId) {
             return redirect()->route('front.booking_finished', $bookingTransactionId);
         }
 
@@ -70,11 +87,10 @@ class BookingController extends Controller
         $validated = $request->validated();
         $bookingDetails = $this->bookingService->getBookingDetails($validated);
 
-        if($bookingDetails) {
+        if ($bookingDetails) {
             return view('front.check_booking_details', compact('bookingDetails'));
         }
 
         return redirect()->route('front.check_booking')->withErrors(['error' => 'Transaction not found']);
     }
-
 }

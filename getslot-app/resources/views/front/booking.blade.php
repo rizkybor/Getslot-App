@@ -140,128 +140,146 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const totalParticipantInput = document.getElementById('total_participant');
-        const participantFormsContainer = document.getElementById('participant-forms');
-        let previousValue = parseInt(totalParticipantInput.value);
+document.addEventListener('DOMContentLoaded', function() {
+    const totalParticipantInput = document.getElementById('total_participant');
+    const participantFormsContainer = document.getElementById('participant-forms');
+    let previousValue = parseInt(totalParticipantInput.value);
 
-        function createParticipantForms(count) {
-            participantFormsContainer.innerHTML = ''; // Clear previous forms
-            for (let i = 0; i < count; i++) {
-                const participantForm = `
-                <div class="flex flex-col gap-2  p-4 rounded-lg border border-gray-300" style="border-radius: 15px;">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-lg">Participant ${i + 1}</h3>
-                        <button type="button" class="toggle-button" data-target="participant-fields-${i}">
-                             <img src="{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}" class="w-6 h-6" alt="icon">
-                        </button>
+    function createParticipantForms(count) {
+        participantFormsContainer.innerHTML = ''; // Clear previous forms
+        for (let i = 0; i < count; i++) {
+            const participantForm = `
+            <div class="flex flex-col gap-2 p-4 rounded-lg border border-gray-300" style="border-radius: 15px;">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-lg">Participant ${i + 1}</h3>
+                    <button type="button" class="toggle-button" data-target="participant-fields-${i}">
+                         <img src="{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}" class="w-6 h-6" alt="icon">
+                    </button>
+                </div>
+                <div id="participant-fields-${i}" class="participant-fields">
+                    <div class="flex flex-col gap-[6px]">
+                        <label for="participant_name_${i}" class="font-semibold text-sm leading-[21px]">Full Name</label>
+                        <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                            <img src="{{ asset('assets/images/icons/ghost-smile.svg') }}" class="w-6 h-6" alt="icon">
+                            <input type="text" name="participants[${i}][participant_name]" id="participant_name_${i}"
+                                class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                placeholder="full name">
+                        </div>
                     </div>
-                    <div id="participant-fields-${i}" class="participant-fields">
-                        <div class="flex flex-col gap-[6px]">
-                            <label for="participant_name_${i}" class="font-semibold text-sm leading-[21px]">Full Name</label>
-                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
-                                <img src="{{ asset('assets/images/icons/ghost-smile.svg') }}" class="w-6 h-6" alt="icon">
-                                <input type="text" name="participants[${i}][participant_name]" id="participant_name_${i}"
-                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
-                                    placeholder="full name">
-                            </div>
+                    <div class="flex flex-col gap-[6px]">
+                        <label for="identity_user_${i}" class="font-semibold text-sm leading-[21px]">Identity User</label>
+                        <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                            <img src="{{ asset('assets/images/icons/user-id.svg') }}" class="w-6 h-6" alt="icon">
+                            <input type="text" name="participants[${i}][identity_user]" id="identity_user_${i}"
+                                class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                placeholder="NIK / passport">
                         </div>
-                        <div class="flex flex-col gap-[6px]">
-                            <label for="identity_user_${i}" class="font-semibold text-sm leading-[21px]">Identity User</label>
-                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
-                                <img src="{{ asset('assets/images/icons/user-id.svg') }}" class="w-6 h-6" alt="icon">
-                                <input type="text" name="participants[${i}][identity_user]" id="identity_user_${i}"
-                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
-                                    placeholder="NIK / passport">
-                            </div>
+                    </div>
+                    <div class="flex flex-col gap-[6px]">
+                        <label for="contingen_${i}" class="font-semibold text-sm leading-[21px]">Contingen</label>
+                        <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                            <img src="{{ asset('assets/images/icons/share-circle.svg') }}" class="w-6 h-6" alt="icon">
+                            <input type="text" name="participants[${i}][contingen]" id="contingen_${i}"
+                                class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
+                                placeholder="club / contingen">
                         </div>
-                        <div class="flex flex-col gap-[6px]">
-                            <label for="contingen_${i}" class="font-semibold text-sm leading-[21px]">Contingen</label>
-                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
-                                <img src="{{ asset('assets/images/icons/share-circle.svg') }}" class="w-6 h-6" alt="icon">
-                                <input type="text" name="participants[${i}][contingen]" id="contingen_${i}"
-                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
-                                    placeholder="club / contingen">
-                            </div>
+                    </div>
+                    <div class="flex flex-col gap-[6px]">
+                        <label for="type_id_${i}" class="font-semibold text-sm leading-[21px]">Type</label>
+                        <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                            <img src="{{ asset('assets/images/icons/box-minimalistic.svg') }}" class="w-6 h-6" alt="icon">
+                          <select name="participants[${i}][type_id]" id="type_id_${i}" data-index="${i}"
+                            class="type-select appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]">
+                             <option value="" disabled selected>Select Type</option>
+                            @foreach ($typeDetailsByTicket as $itemType)
+                                <option value="{{ $itemType->id }}">{{ $itemType->name }}</option>
+                            @endforeach
+                        </select>
                         </div>
-                        <div class="flex flex-col gap-[6px]">
-                            <label for="type_id_${i}" class="font-semibold text-sm leading-[21px]">Type</label>
-                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
-                                <img src="{{ asset('assets/images/icons/box-minimalistic.svg') }}" class="w-6 h-6" alt="icon">
-                                <select name="participants[${i}][type_id]" id="type_id_${i}"
-                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]">
-                                   <option value="" disabled selected>Select Type</option>
-                                    <option value="1">Type 1</option>
-                                    <option value="2">Type 2</option>
-                                    <option value="3">Type 3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-[6px]">
-                            <label for="initial_id_${i}" class="font-semibold text-sm leading-[21px]">Class</label>
-                            <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
-                                <img src="{{ asset('assets/images/icons/box-minimalistic.svg') }}" class="w-6 h-6" alt="icon">
-                                <select name="participants[${i}][initial_id]" id="initial_id${i}"
-                                    class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]">
-                                   <option value="" disabled selected>Select Class</option>
-                                    <option value="1">Classes 1</option>
-                                    <option value="2">Classes 2</option>
-                                    <option value="3">Classes 3</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="flex flex-col gap-[6px]">
+                        <label for="initial_id_${i}" class="font-semibold text-sm leading-[21px]">Class</label>
+                        <div class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
+                            <img src="{{ asset('assets/images/icons/box-minimalistic.svg') }}" class="w-6 h-6" alt="icon">
+                            <select name="participants[${i}][initial_id]" id="initial_id_${i}"
+                                class="initial-select appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]">
+                               <option value="" disabled selected>Select Class</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-            `;
-                participantFormsContainer.insertAdjacentHTML('beforeend', participantForm);
-            }
-
-            // Add event listeners to toggle buttons
-            const toggleButtons = document.querySelectorAll('.toggle-button');
-            toggleButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-target');
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement.style.display === 'none') {
-                        targetElement.style.display = 'block';
-                        this.querySelector('img').src =
-                            "{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}"; // Change icon to collapse
-                    } else {
-                        targetElement.style.display = 'none';
-                        this.querySelector('img').src =
-                            "{{ asset('assets/images/icons/maximize-square-minimalistic-up.svg') }}"; // Change icon to expand
-                    }
-                });
-            });
+            </div>
+        `;
+            participantFormsContainer.insertAdjacentHTML('beforeend', participantForm);
         }
 
-        // Initialize with the current value of total_participant
-        createParticipantForms(parseInt(totalParticipantInput.value));
+        // Re-attach event listeners after new forms are created
+        attachEventListeners();
+    }
 
-        // Polling method to check if the value has changed
-        setInterval(function() {
-            const currentValue = parseInt(totalParticipantInput.value);
-            if (currentValue !== previousValue) {
-                createParticipantForms(currentValue);
-                previousValue = currentValue;
-            }
-        }, 300); // Adjust the interval as necessary
-    });
+    function attachEventListeners() {
+        // Add event listeners to the Type select dropdowns
+        document.querySelectorAll('.type-select').forEach(selectElement => {
+            selectElement.addEventListener('change', function() {
+                const typeId = this.value;
+                const index = this.getAttribute('data-index');
+                const initialSelect = document.getElementById(`initial_id_${index}`);
+
+                if (typeId) {
+                    // Make an AJAX request to get the initials based on the selected type
+                    fetch(`/get-initials/${typeId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Clear previous options
+                            initialSelect.innerHTML = '<option value="" disabled selected>Select Class</option>';
+
+                            // Populate the Class (Initial) dropdown with the data
+                            data.forEach(initial => {
+                                const option = document.createElement('option');
+                                option.value = initial.id;
+                                option.textContent = initial.name;
+                                initialSelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching initials:', error);
+                        });
+                }
+            });
+        });
+
+        // Add event listeners to toggle buttons
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement.style.display === 'none') {
+                    targetElement.style.display = 'block';
+                    this.querySelector('img').src =
+                        "{{ asset('assets/images/icons/minimize-square-minimalistic-down.svg') }}"; // Change icon to collapse
+                } else {
+                    targetElement.style.display = 'none';
+                    this.querySelector('img').src =
+                        "{{ asset('assets/images/icons/maximize-square-minimalistic-up.svg') }}"; // Change icon to expand
+                }
+            });
+        });
+    }
+
+    // Initialize with the current value of total_participant
+    createParticipantForms(parseInt(totalParticipantInput.value));
+
+    // Polling method to check if the value has changed
+    setInterval(function() {
+        const currentValue = parseInt(totalParticipantInput.value);
+        if (currentValue !== previousValue) {
+            createParticipantForms(currentValue);
+            previousValue = currentValue;
+        }
+    }, 300); // Adjust the interval as necessary
+});
 </script>
-{{-- // <select name="participants[${i}][type_id]" id="type_id_${i}"
-//     class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]">
-//     @foreach ($types as $id => $name)
-//         <option value="{{ $id }}">{{ $name }}</option>
-//     @endforeach
-// </select> --}}
-
-
-{{-- // <select name="participants[${i}][initial_id]" id="initial_id_${i}"
-//     class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]">
-//     @foreach ($initials as $id => $name)
-//         <option value="{{ $id }}">{{ $name }}</option>
-//     @endforeach
-// </select> --}}
 
 </html>
 

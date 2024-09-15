@@ -25,19 +25,23 @@ class BookingService
         return $this->bookingRepository->findByTrxIdAndPhoneNumber($validated['booking_trx_id'], $validated['phone_number']);
     }
 
-    public function calculateTotals($ticketId, $totalParticipant)
+    public function calculateTotals(array $participants)
     {
         $ppn = 0.11;
-        $price = $this->ticketRepository->getPrice($ticketId);
+        $subTotal = 0;
 
-        $subTotal = $totalParticipant * $price;
+        foreach ($participants as $participant) {
+            $initialPrice = $this->ticketRepository->getPrice($participant['initial_id']);
+            $subTotal += $initialPrice;
+        }
+
         $ppnTotal = $subTotal * $ppn;
         $totalAmount = $subTotal + $ppnTotal;
 
         return [
             'sub_total' => $subTotal,
             'ppn_total' => $ppnTotal,
-            'total_amount' => $totalAmount
+            'total_amount' => $totalAmount,
         ];
     }
 

@@ -41,7 +41,7 @@ Route::get('/result', function () {
     return view('front.result');
 })->name('front.result');
 
-
+Route::get('/get-initials/{typeId}', action: [BookingController::class, 'getInitials']);
 
 
 
