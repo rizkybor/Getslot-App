@@ -143,7 +143,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     const totalParticipantInput = document.getElementById('total_participant');
     const participantFormsContainer = document.getElementById('participant-forms');
-    let previousValue = parseInt(totalParticipantInput.value);
+    const plusButton = document.getElementById('plus');
+    const minusButton = document.getElementById('minus');
+    const countText = document.getElementById('count-text');
+    let currentValue = parseInt(totalParticipantInput.value);
+    // let previousValue = parseInt(totalParticipantInput.value);
+
 
     function createParticipantForms(count) {
         participantFormsContainer.innerHTML = ''; // Clear previous forms
@@ -257,27 +262,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (targetElement.style.display === 'none') {
                     targetElement.style.display = 'block';
                     this.querySelector('img').src =
-                        "{{ asset('assets/images/icons/square-bottom-down-svgrepo.svg') }}"; // Change icon to collapse
+                        "{{ asset('assets/images/icons/square-top-down-svgrepo.svg') }}"; // Change icon to collapse
                 } else {
                     targetElement.style.display = 'none';
                     this.querySelector('img').src =
-                        "{{ asset('assets/images/icons/square-top-down-svgrepo.svg') }}"; // Change icon to expand
+                        "{{ asset('assets/images/icons/square-bottom-down-svgrepo.svg') }}"; // Change icon to expand
                 }
             });
         });
     }
 
-    // Initialize with the current value of total_participant
-    createParticipantForms(parseInt(totalParticipantInput.value));
+    plusButton.addEventListener("click", () => {
+        currentValue++;
+        totalParticipantInput.value = currentValue;
+        countText.textContent = currentValue;
+        createParticipantForms(currentValue);
+    });
 
-    // Polling method to check if the value has changed
-    setInterval(function() {
-        const currentValue = parseInt(totalParticipantInput.value);
-        if (currentValue !== previousValue) {
+    minusButton.addEventListener("click", () => {
+        if (currentValue > 1) { // Ensure the count doesn't go below 1
+            currentValue--;
+            totalParticipantInput.value = currentValue;
+            countText.textContent = currentValue;
             createParticipantForms(currentValue);
-            previousValue = currentValue;
         }
-    }, 300); // Adjust the interval as necessary
+    });
+
+    // Inisialisasi form partisipan dengan nilai awal
+    createParticipantForms(currentValue);
 });
 </script>
 
