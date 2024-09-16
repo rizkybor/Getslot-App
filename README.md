@@ -7,8 +7,8 @@ Fitur Utama
 	- Manajemen Tiket: Buat, kelola, dan distribusikan tiket acara dengan mudah.
 	- Reservasi Online: Izinkan pengguna untuk melakukan reservasi tiket secara online.
 	- Laporan dan Analisis: Dapatkan wawasan dari laporan penjualan tiket dan partisipasi acara.
-	- Notifikasi: Kirim pengingat dan informasi penting kepada peserta acara.
-	- User-Friendly Interface: Desain antarmuka yang mudah digunakan dan diakses oleh semua pengguna.
+	- Notifikasi: Kirim pengingat dan informasi pemesanan dan konfirmasi Ticket melalui Email.
+	- User-Friendly Interface: Desain mobile yang mudah digunakan dan diakses oleh semua pengguna.
 
 
 ## Index
