@@ -39,10 +39,6 @@ class BookingController extends Controller
     {
         $validateData = $request->validated();
 
-        if (!isset($validatedData['participants'])) {
-            return back()->withErrors(['participants' => 'Participants data is missing'])->withInput();
-        }
-
         $totals = $this->bookingService->calculateTotals($validateData['participants']);
 
         $this->bookingService->storeBookingInSession($ticket, $validateData, $totals);
