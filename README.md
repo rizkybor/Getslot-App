@@ -1,6 +1,6 @@
 # Getslot App - Ticketing Portal
 
-getslot adalah portal ticketing yang dirancang untuk mempermudah pengelolaan tiket acara, reservasi, dan manajemen peserta. Portal ini menawarkan solusi yang efisien dan user-friendly untuk penyelenggara acara dalam mengatur dan melacak penjualan tiket, mengelola peserta, serta memberikan kemudahan dalam pembuatan laporan.
+Getslot adalah portal ticketing yang dirancang untuk mempermudah pengelolaan tiket acara, reservasi, dan manajemen peserta pada kegiatan yang bertajuk Kejuaraan, Workshop, atau Seminar. Portal ini menawarkan solusi yang efisien dan user-friendly untuk penyelenggara acara dalam mengatur dan melacak penjualan tiket, mengelola peserta, serta memberikan kemudahan dalam pembuatan laporan.
 
 Fitur Utama
 
@@ -22,14 +22,15 @@ Informasi Umum :
 	•	PHP >= 8.2
 	•	Composer
 	•	Laravel >= 9.x
+	•	Filament
 	•	MySQL atau database lain yang kompatibel
 	•	Server Web (Apache, Nginx, dll.)
-	•	Node.js dan npm (untuk menjalankan frontend build)
 
 
 ### Versi-Type
 
-Updated: 1.0.1
+Previous Version 1.0.0
+Updated Version 1.0.1
 
 Release 15 September 2024 :
 
@@ -38,8 +39,6 @@ Release 15 September 2024 :
 	- Fitur menambahkan Type berdasarkan Tiket.
 	- Fitur Multiple Participants.
 	- Penyesuaian UI Client.
-
-
 
 
 ### Lisensi
