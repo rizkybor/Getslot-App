@@ -31,7 +31,7 @@
                 <h1 class="font-bold text-lg leading-[27px] text-white text-center w-full">Book a Ticket</h1>
             </div>
         </div>
-        <form method="POST" action="{{route('front.booking_store', $ticket->slug)}}"
+        <form method="POST" action="{{ route('front.booking_store', $ticket->slug) }}"
             class="relative flex flex-col w-full px-4 gap-[18px] mt-5 pb-[30px] overflow-x-hidden">
             @csrf
             <div class="flex items-center justify-between rounded-3xl p-[6px] pr-[14px] bg-white overflow-hidden">
@@ -47,9 +47,6 @@
                                 alt="icon">
                             <p class="font-semibold text-xs leading-[18px]">{{ $ticket->seller->name }}</p>
                         </div>
-                        <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp
-                            {{ number_format($ticket->price, 0, ',', '.') }}</p>
-                        <input type="hidden" name="realTicketPrice" id="realTicketPrice" value="{{ $ticket->price }}">
                     </div>
                 </div>
                 <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
@@ -63,7 +60,7 @@
                     <div
                         class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
                         <img src="{{ asset('assets/images/icons/user-octagon.svg') }}" class="w-6 h-6" alt="icon">
-                        <input type="text" name="name" id="name"
+                        <input type="text" name="name" id="name" autocomplete="name"
                             class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
                             placeholder="Write your complete name">
                     </div>
@@ -73,7 +70,7 @@
                     <div
                         class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
                         <img src="{{ asset('assets/images/icons/sms.svg') }}" class="w-6 h-6" alt="icon">
-                        <input type="email" name="email" id="email"
+                        <input type="email" name="email" id="email" autocomplete="email"
                             class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
                             placeholder="Write your email">
                     </div>
@@ -83,7 +80,7 @@
                     <div
                         class="flex items-center rounded-full px-5 gap-[10px] bg-[#F8F8F9] transition-all duration-300 focus-within:ring-1 focus-within:ring-[#F97316]">
                         <img src="{{ asset('assets/images/icons/mobile.svg') }}" class="w-6 h-6" alt="icon">
-                        <input type="tel" name="phone_number" id="phone"
+                        <input type="tel" name="phone_number" id="phone" autocomplete="tel"
                             class="appearance-none outline-none py-[14px] !bg-transparent w-full font-semibold text-sm leading-[21px] placeholder:font-normal placeholder:text-[#13181D]"
                             placeholder="Give us your number">
                     </div>
@@ -114,13 +111,12 @@
                         </button>
                     </div>
                 </div>
-                <div class="flex items-center justify-between">
-                    <p class="font-semibold text-sm leading-[21px]">Sub Total</p>
-                    <p id="total-price" class="font-bold text-[22px] leading-[33px] text-[#F97316]"></p>
+
+                <div id="participant-forms" class="flex flex-col gap-4">
+                    <!-- Participant forms will be appended here dynamically -->
+
                 </div>
-                <input type="hidden" name="sub_total" id="sub_total">
-                <input type="hidden" name="total_ppn" id="total_ppn">
-                <input type="hidden" name="total_amount" id="total_amount">
+
                 <button type="submit"
                     class="flex items-center justify-between p-1 pl-5 w-full gap-4 rounded-full bg-[#13181D]">
                     <p class="font-bold text-white">Continue to Checkout</p>
@@ -129,8 +125,17 @@
             </div>
         </form>
     </div>
-
-    <script src="{{ asset('js/booking.js') }}"></script>
+    @php
+        $typeOptionsHtml = '';
+        foreach ($typeDetailsByTicket as $itemType) {
+            $typeOptionsHtml .= "<option value='{$itemType->id}'>{$itemType->name}</option>";
+        }
+    @endphp
 </body>
+<script src="{{ asset('js/booking_participant.js') }}"></script>
+<script>
+    var assetPath = "{{ asset('../') }}";
+    var typeOptionsHtml = `{!! $typeOptionsHtml !!}`;
+</script>
 
 </html>

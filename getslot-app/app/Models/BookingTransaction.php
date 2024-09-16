@@ -31,20 +31,11 @@ class BookingTransaction extends Model
         'started_at' => 'date',
     ];
 
-    // public static function generateUniqueTrxId()
-    // {
-    //     $prefix = 'GS';
-    //     do{
-    //         $randomString = $prefix . mt_rand(1000, 9999);
-    //     } while(self::where('booking_trx_id', $randomString)->exists());
-
-    //     return $randomString;
-    // }
     public static function generateSequentialTrxId()
 {
     // Dapatkan ID terakhir
     $lastTransaction = self::withTrashed()->latest('id')->first();
-    $prefix = 'GS';
+    $prefix = 'GS-';
     
     // Jika belum ada, mulai dari 000001
     if (!$lastTransaction) {
@@ -53,7 +44,7 @@ class BookingTransaction extends Model
         // Ambil ID terakhir, tambah 1
         $nextId = $lastTransaction->id + 1;
     }
-    $formattedId = str_pad($nextId, 6, '0', STR_PAD_LEFT);
+    $formattedId = str_pad($nextId, 4, '0', STR_PAD_LEFT);
 
     // Gabungkan prefix dengan formattedId
     return $prefix . $formattedId;
@@ -64,11 +55,6 @@ class BookingTransaction extends Model
         return $this->belongsTo(Ticket::class, 'ticket_id');
     }
 
-    // public function participants(): HasMany
-    // {
-    //     return $this->hasMany(Participant::class);
-    // }
-    
     public function bookingParticipant(): HasMany
     {
         return $this->hasMany(BookingParticipant::class);
