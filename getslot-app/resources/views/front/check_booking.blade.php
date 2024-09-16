@@ -33,6 +33,7 @@
                 </button>
             </form>
         </main>
+
         <nav id="Bottom-Nav" class="fixed bottom-0 w-full max-w-[640px] bg-white px-4 py-5 z-30">
             <ul class="flex justify-evenly max-[400px]:justify-between">
                 <li class=" text-[#13181D]">
@@ -71,7 +72,7 @@
                     </a>
                 </li>
                 <li class=" text-[#13181D]">
-                    <a href="" class="menu">
+                    <a href="{{ route('front.result') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,12 +83,12 @@
                                     <path opacity="0.6" d="M9.44 10V15.14C9.44 15.94 10.32 16.41 10.99 15.98L11.93 15.36C12.27 15.14 12.7 15.14 13.03 15.36L13.92 15.96C14.58 16.4 15.47 15.93 15.47 15.13V10H9.44Z"/>
                                 </svg>
                             </div>
-                            <p class="font-semibold text-sm leading-[21px] transition-all duration-300 group-hover:text-[#F97316] text-current">Rewards</p>
+                            <p class="font-semibold text-sm leading-[21px] transition-all duration-300 group-hover:text-[#F97316] text-current">Result</p>
                         </div>
                     </a>
                 </li>
                 <li class=" text-[#13181D]">
-                    <a href="" class="menu">
+                    <a href="{{ route('front.support') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="w-6 h-6 flex shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

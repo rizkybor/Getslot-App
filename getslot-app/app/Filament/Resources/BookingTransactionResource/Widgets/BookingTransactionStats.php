@@ -13,7 +13,6 @@ class BookingTransactionStats extends BaseWidget
         $totalTransaction = BookingTransaction::count();
         $approvedTransaction = BookingTransaction::where('is_paid', true)->count();
         $totalRevenue = BookingTransaction::where('is_paid', true)->sum('total_amount');
-        // dd($totalRevenue);
 
         return [
             //

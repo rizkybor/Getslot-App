@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Seller;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Ticket extends Model
@@ -22,19 +23,32 @@ class Ticket extends Model
         'thumbnail',
         'address',
         'path_video',
-        'price',
         'is_popular',
         'about',
         'open_time_at',
         'close_time_at',
         'category_id',
         'seller_id',
+        'type_id',
+        'benefit_id',
+        'event_date',
+        'like'
     ];
 
     // Ketika 1 Kategori memiliki banyak Ticket
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function benefit(): BelongsToMany
+    {
+        return $this->belongsToMany(Benefit::class, 'ticket_benefits')->withPivot('created_at', 'updated_at');
+    }
+
+    public function type(): BelongsToMany
+    {
+        return $this->belongsToMany(Type::class, 'ticket_types')->withPivot('created_at', 'updated_at');;
     }
 
     // Ketika 1 Seller memiliki banyak Ticket
@@ -50,7 +64,8 @@ class Ticket extends Model
     }
 
     // for SEO untuk setiap data yang memiliki Slug
-    public function setNameAttribute($value){
+    public function setNameAttribute($value)
+    {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
