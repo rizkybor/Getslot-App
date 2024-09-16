@@ -75,8 +75,23 @@ Access the application at http://localhost:8000
 
 # Lisensi
 
-Proyek ini dibuat oleh Rizky Ajie Kurniawan.
+Proyek ini adalah hak cipta pribadi (c) 2024 oleh Rizky Ajie Kurniawan. Semua hak dilindungi undang-undang.
 
-Dengan README ini, pengguna baru akan memiliki pemahaman yang jelas tentang apa itu Getslot,” serta bagaimana mereka dapat menginstal dan mulai menggunakan proyek ini.
+Penggunaan, distribusi, dan modifikasi dari proyek ini memerlukan izin tertulis dari pemilik hak cipta. Untuk informasi lebih lanjut atau permintaan lisensi, silakan hubungi [rizkyak994@gmail.com].
+
+Ini memberikan konteks yang jelas tentang bagaimana proyek dapat digunakan oleh orang lain.
+
+# Versi 1.0.1
+
+Updated: 1.0.1
+
+Release 15 September 2024 :
+	•	Perbaikan bug minor dan peningkatan performa.
+	•	Fitur menambahkan Class List berdasarkan Type.
+	•	Fitur menambahkan Type berdasarkan Tiket.
+	•	Fitur Multiple Participants.
+	•	Penyesuaian UI Client.
+
+Dengan README ini, pengguna tidak hanya memahami cara menginstal dan menggunakan proyek, tetapi juga memiliki informasi yang jelas mengenai lisensi dan pembaruan versi terbaru.
 
 

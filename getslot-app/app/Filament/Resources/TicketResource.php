@@ -6,6 +6,7 @@ use App\Filament\Resources\TicketResource\Pages;
 use App\Filament\Resources\TicketResource\RelationManagers;
 use App\Models\Ticket;
 use Filament\Forms;
+use Filament\Forms\Components\BelongsToManyMultiSelect;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
@@ -14,6 +15,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TextArea;
 use Filament\Forms\Components\TimePicker;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,11 +27,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+
 class TicketResource extends Resource
 {
     protected static ?string $model = Ticket::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-ticket';
 
     protected static ?string $navigationGroup = 'Customer';
 
@@ -70,11 +73,6 @@ class TicketResource extends Resource
                         ->required()
                         ->maxLength(255),
                         
-                        TextInput::make('price')
-                        ->required()
-                        ->numeric()
-                        ->prefix('IDR'),
-                        
                         Select::make('is_popular')
                         ->options([
                             '1' => 'Popular',
@@ -93,6 +91,22 @@ class TicketResource extends Resource
                         ->searchable()
                         ->preload()
                         ->required(),
+
+                        Select::make('type_id')
+                        ->multiple()
+                        ->relationship('type', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                        Select::make('benefit_id')
+                        ->multiple()
+                        ->relationship('benefit', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
+
+                        DatePicker::make('event_date')->required(),
 
                         TimePicker::make('open_time_at')
                         ->required(),

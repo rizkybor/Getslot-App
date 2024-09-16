@@ -23,11 +23,17 @@ class StoreBookingRequest extends FormRequest
     {
         return [
             //
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'lowercase', 'email', 'max:255'],
-            'phone_number' => ['required', 'string', 'max:255'],
-            'started_at' => ['required', 'date', 'after:today'],
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone_number' => 'required|string|max:20',
+            'started_at' => 'required|date',
             'total_participant' => 'required|integer|min:1',
+            'participants' => 'required|array|min:1',
+            'participants.*.participant_name' => 'required|string|max:255',
+            'participants.*.identity_user' => 'required|string|max:255',
+            'participants.*.contingen' => 'nullable|string|max:255',
+            'participants.*.type_id' => 'required|integer|exists:types,id',
+            'participants.*.initial_id' => 'required|integer|exists:initials,id',
         ];
     }
 }

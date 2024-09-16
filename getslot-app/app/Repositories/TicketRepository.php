@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Initial;
 use App\Models\Ticket;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 
@@ -24,10 +25,16 @@ class TicketRepository implements TicketRepositoryInterface
         return Ticket::find($id);
     }
 
-    public function getPrice($ticketId)
-    {
-        $ticket = $this->find($ticketId);
-        return $ticket ? $ticket->price : 0;
-    }
+    // public function getPrice($ticketId)
+    // {
+    //     $ticket = $this->find($ticketId);
+    //     return $ticket ? $ticket->price : 0;
+    // }
+
+    public function getPrice($initialId)
+{
+    $initial = Initial::find($initialId);
+    return $initial ? $initial->price : 0; // Return price or 0 if not found
+}
 
 }
