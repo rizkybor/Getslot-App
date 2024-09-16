@@ -30,6 +30,7 @@ Informasi Umum :
 ### Versi-Type
 
 Previous Version 1.0.0
+
 Updated Version 1.0.1
 
 Release 15 September 2024 :
