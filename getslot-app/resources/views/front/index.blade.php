@@ -18,9 +18,9 @@
             <a href="index.html">
                 <img src="{{ asset('assets/images/logos/logo-getslot.svg') }}" style="width: 120px; height: auto" class="flex shrink-0" alt="logo">
             </a>
-            <a href="#">
+            {{-- <a href="#">
                 <img src="{{ asset('assets/images/icons/heart-fill.svg') }}" class="w-12 h-12" alt="icon">
-            </a>
+            </a> --}}
         </div>
         <main class="flex flex-col w-full gap-5 mt-5 overflow-x-hidden">
             <section id="Popular" class="flex flex-col gap-3">
@@ -41,12 +41,12 @@
                                                 <p class="text-sm leading-[18px] text-white">
                                                     {{ $itemPopularTicket->category->name }}</p>
                                             </div>
-                                            <p
+                                            {{-- <p
                                                 class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-white">
                                                 <img src="{{ asset('assets/images/icons/Star 1.svg') }}" class="w-4 h-4"
                                                     alt="star">
                                                 <span class="font-semibold text-xs leading-[18px]">4/5</span>
-                                            </p>
+                                            </p> --}}
                                         </div>
                                     </div>
                                 </a>
@@ -130,11 +130,11 @@
                                     {{-- <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp. {{ number_format($itemNewTicket->price, 0, '.', ',') }}</p> --}}
                                 </div>
                             </div>
-                            <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
+                            {{-- <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
                                 <img src="{{ asset('assets/images/icons/Star 1.svg') }}" class="w-4 h-4"
                                     alt="star">
                                 <span class="font-semibold text-xs leading-[18px] text-[#F97316]">4/5</span>
-                            </p>
+                            </p> --}}
                         </div>
                     </a>
                     @empty
