@@ -4,15 +4,20 @@ getslot adalah portal ticketing yang dirancang untuk mempermudah pengelolaan tik
 
 Fitur Utama
 
-	•	Manajemen Tiket: Buat, kelola, dan distribusikan tiket acara dengan mudah.
-	•	Reservasi Online: Izinkan pengguna untuk melakukan reservasi tiket secara online.
-	•	Laporan dan Analisis: Dapatkan wawasan dari laporan penjualan tiket dan partisipasi acara.
-	•	Notifikasi: Kirim pengingat dan informasi penting kepada peserta acara.
-	•	User-Friendly Interface: Desain antarmuka yang mudah digunakan dan diakses oleh semua pengguna.
+	- Manajemen Tiket: Buat, kelola, dan distribusikan tiket acara dengan mudah.
+	- Reservasi Online: Izinkan pengguna untuk melakukan reservasi tiket secara online.
+	- Laporan dan Analisis: Dapatkan wawasan dari laporan penjualan tiket dan partisipasi acara.
+	- Notifikasi: Kirim pengingat dan informasi penting kepada peserta acara.
+	- User-Friendly Interface: Desain antarmuka yang mudah digunakan dan diakses oleh semua pengguna.
 
-Prasyarat
 
-Sebelum menginstal dan menjalankan proyek ini, pastikan Anda telah menginstal prasyarat berikut:
+## Index
+- [About](#about)
+  - [Version-Type](#version-type)
+  - [Lisensi](#lisensi)
+
+## About
+Informasi Umum :
 
 	•	PHP >= 8.2
 	•	Composer
@@ -21,59 +26,23 @@ Sebelum menginstal dan menjalankan proyek ini, pastikan Anda telah menginstal pr
 	•	Server Web (Apache, Nginx, dll.)
 	•	Node.js dan npm (untuk menjalankan frontend build)
 
-Cara Penginstalan
 
-Berikut adalah langkah-langkah untuk menginstal dan menjalankan proyek “getslot”:
+### Versi-Type
+
+Updated: 1.0.1
+
+Release 15 September 2024 :
+
+	- Perbaikan bug minor dan peningkatan performa.
+	- Fitur menambahkan Class List berdasarkan Type.
+	- Fitur menambahkan Type berdasarkan Tiket.
+	- Fitur Multiple Participants.
+	- Penyesuaian UI Client.
 
 
-# 1. Clone Repository
-```
-git clone https://github.com/username/getslot.git
-cd getslot
-```
 
 
-# 2. Install Dependencies
-```
-composer install
-npm install
-```
-
-# 3. Configure Environment File
-```
-cp .env.example .env
-```
-
-Adjust the values in the .env file, such as database configuration, email services, and others.
-
-# 4. Generate Application Key
-```
-php artisan key:generate
-```
-
-# 5. Migrate and Seed Database
-```
-php artisan migrate --seed
-```
-
-# 6. Build Frontend Assets
-```
-npm run dev
-```
-
-# For production build, use:
-```
-npm run prod
-```
-
-# 7. Run the Application
-```
-php artisan serve
-```
-
-Access the application at http://localhost:8000
-
-# Lisensi
+### Lisensi
 
 Proyek ini adalah hak cipta pribadi (c) 2024 oleh Rizky Ajie Kurniawan. Semua hak dilindungi undang-undang.
 
@@ -81,17 +50,6 @@ Penggunaan, distribusi, dan modifikasi dari proyek ini memerlukan izin tertulis 
 
 Ini memberikan konteks yang jelas tentang bagaimana proyek dapat digunakan oleh orang lain.
 
-# Versi 1.0.1
-
-Updated: 1.0.1
-
-Release 15 September 2024 :
-	•	Perbaikan bug minor dan peningkatan performa.
-	•	Fitur menambahkan Class List berdasarkan Type.
-	•	Fitur menambahkan Type berdasarkan Tiket.
-	•	Fitur Multiple Participants.
-	•	Penyesuaian UI Client.
-
-Dengan README ini, pengguna tidak hanya memahami cara menginstal dan menggunakan proyek, tetapi juga memiliki informasi yang jelas mengenai lisensi dan pembaruan versi terbaru.
+Dengan README ini, pengguna memiliki informasi yang jelas mengenai lisensi dan pembaruan versi terbaru.
 
 
