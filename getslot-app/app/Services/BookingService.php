@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Jobs\SendBookingConfirmedEmail;
+use App\Models\BookingParticipant;
 use App\Models\BookingTransaction;
 use App\Repositories\Contracts\BookingRepositoryInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
@@ -58,23 +59,26 @@ class BookingService
             'ppn_total' => $totals['ppn_total'],
             'total_amount' => $totals['total_amount']
         ]);
+
+        session()->put('participant', $validateData['participants']);
     }
 
     public function payment()
     {
         $booking = session()->get('booking');
+        $participant = session()->get('participant');
         $ticket = $this->ticketRepository->find($booking['ticket_id']);
 
-        return compact('booking', 'ticket');
+        return compact('booking', 'participant', 'ticket');
     }
 
     public function paymentStore(array $validated)
     {
         $booking = session('booking');
+        $participants = session('participant');
         $bookingTransactionId = null;
         
-
-        DB::transaction(function() use ($validated, &$bookingTransactionId, $booking){
+        DB::transaction(function() use ($validated, &$bookingTransactionId, $booking, $participants){
             if(isset($validated['proof'])){
                 $proofPath = $validated['proof']->store('proofs', 'public');
                 $validated['proof'] = $proofPath;
@@ -83,20 +87,24 @@ class BookingService
             $validated['name'] = $booking['name'];
             $validated['email'] = $booking['email'];
             $validated['phone_number'] = $booking['phone_number'];
-
             $validated['total_participant'] = $booking['total_participant'];
             $validated['started_at'] = $booking['started_at'];
             $validated['total_amount'] = $booking['total_amount'];
-
             $validated['ticket_id'] = $booking['ticket_id'];
             $validated['is_paid'] = false;
-            
             $validated['booking_trx_id'] = BookingTransaction::generateSequentialTrxId();
 
+            // Buat transaksi booking baru
             $newBooking = $this->bookingRepository->createBooking($validated);
             $bookingTransactionId = $newBooking->id;
 
-            // SEND EMAIL TO CUSTOMER use Laravel Jobs
+            // Simpan data peserta ke tabel booking_participant
+            foreach ($participants as $participant) {
+                $participant['booking_transaction_id'] = $bookingTransactionId;
+                BookingParticipant::create($participant);
+            }
+
+            // Kirim email konfirmasi ke pelanggan use laravel jobs
             SendBookingConfirmedEmail::dispatch($newBooking);
 
         });

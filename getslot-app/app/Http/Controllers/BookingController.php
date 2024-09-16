@@ -38,7 +38,7 @@ class BookingController extends Controller
     public function bookingStore(Ticket $ticket, StoreBookingRequest $request)
     {
         $validateData = $request->validated();
-
+        
         $totals = $this->bookingService->calculateTotals($validateData['participants']);
 
         $this->bookingService->storeBookingInSession($ticket, $validateData, $totals);
