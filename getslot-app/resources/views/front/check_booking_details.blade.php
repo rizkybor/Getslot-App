@@ -19,7 +19,7 @@
                     <img src="{{asset('assets/images/icons/back.svg')}}" class="w-12 h-12" alt="icon">
                 </a>
                 <a href="#">
-                    <img src="{{asset('assets/images/icons/heart.svg')}}" class="w-12 h-12" alt="icon">
+                    <img src="{{asset('assets/images/icons/bag-4-svgrepo.svg')}}" class="w-12 h-12" style="color: white" alt="icon">
                 </a>
             </div>
             <div class="flex items-center justify-center h-12 w-full shrink-0">
@@ -38,13 +38,13 @@
                             <img src="{{asset('assets/images/icons/location.svg')}}" class="w-[18px] h-[18px]" alt="icon">
                             <p class="font-semibold text-xs leading-[18px]">{{ $bookingDetails->ticket->seller->name }}</p>
                         </div>
-                        <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp {{ number_format($bookingDetails->ticket->price, 0, ',', '.') }}</p>
+                        <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp {{ number_format($bookingDetails->total_amount, 0, ',', '.') }}</p>
                     </div>
                 </div>
-                <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
+                {{-- <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
                     <img src="{{asset('assets/images/icons/Star 1.svg')}}" class="w-4 h-4" alt="star">
                     <span class="font-semibold text-xs leading-[18px] text-[#F97316]">4/5</span>
-                </p>
+                </p> --}}
             </div>
             <div class="relative w-[361px] h-[504px] shrink-0 mx-auto overflow-hidden">
                 <img src="{{asset('assets/images/backgrounds/receipt.svg')}}" class="absolute w-full h-full object-contain" alt="background">
