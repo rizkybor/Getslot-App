@@ -72,5 +72,4 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
-    'asset_url' => env('APP_URL', 'https://getslot-app-production.up.railway.app'),
 ];
