@@ -10,18 +10,10 @@ use App\Repositories\Contracts\SellerRepositoryInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 use App\Repositories\SellerRepository;
 use App\Repositories\TicketRepository;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function boot()
-    {
-        if (env('APP_ENV', 'production') == 'production') {
-            URL::forceScheme('https');
-        }
-    }
-
     /**
      * Register any application services.
      */
