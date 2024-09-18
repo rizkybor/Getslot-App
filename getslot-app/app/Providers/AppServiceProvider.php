@@ -10,17 +10,15 @@ use App\Repositories\Contracts\SellerRepositoryInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 use App\Repositories\SellerRepository;
 use App\Repositories\TicketRepository;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\UrlGenerator;
-
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function boot(UrlGenerator $url)
+    public function boot()
     {
-        if(env('APP_ENV') !== 'local')
-        {
-            $url->forceSchema('https');
+        if (env('APP_ENV', 'production') == 'production') {
+            URL::forceScheme('https');
         }
     }
 
