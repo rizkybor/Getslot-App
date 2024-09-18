@@ -11,9 +11,19 @@ use App\Repositories\Contracts\TicketRepositoryInterface;
 use App\Repositories\SellerRepository;
 use App\Repositories\TicketRepository;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\UrlGenerator;
+
 
 class AppServiceProvider extends ServiceProvider
 {
+    public function boot(UrlGenerator $url)
+    {
+        if(env('APP_ENV') !== 'local')
+        {
+            $url->forceSchema('https');
+        }
+    }
+
     /**
      * Register any application services.
      */
