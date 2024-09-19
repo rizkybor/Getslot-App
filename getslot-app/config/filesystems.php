@@ -58,10 +58,6 @@ return [
 
     ],
 
-   'filament' => [
-        'upload_url' => url('/livewire/upload-file', [], true),
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Symbolic Links
