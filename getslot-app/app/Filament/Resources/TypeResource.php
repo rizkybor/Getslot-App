@@ -47,11 +47,7 @@ class TypeResource extends Resource
 
                 FileUpload::make('icon')
                 ->image()
-                ->required()
-                ->uploadUrl(function () {
-                    return secure_url('/livewire/upload-file');
-                })
-                ,
+                ->required(),
             ]);
     }
 
