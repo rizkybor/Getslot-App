@@ -58,8 +58,8 @@ return [
 
     ],
 
-    'filament' => [
-        'upload_url' => $request->secureUrl('/livewire/upload-file'),
+   'filament' => [
+        'upload_url' => url('/livewire/upload-file', [], true),
     ],
 
     /*
