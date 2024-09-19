@@ -23,7 +23,6 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->domain('https://getslot-app-production.up.railway.app')
             ->default()
             ->id('admin')
             ->path('admin')
