@@ -47,8 +47,7 @@ class TypeResource extends Resource
 
                 FileUpload::make('icon')
                 ->image()
-                ->required()
-                ->disk('public') ,
+                ->required(),
             ]);
     }
 
