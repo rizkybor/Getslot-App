@@ -11,12 +11,24 @@ use App\Repositories\Contracts\TicketRepositoryInterface;
 use App\Repositories\SellerRepository;
 use App\Repositories\TicketRepository;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+
 
 class AppServiceProvider extends ServiceProvider
 {
+     /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        if (config('APP_ENV') !== 'local') {
+            URL::forceScheme('https');
+        }
+    }
     /**
      * Register any application services.
      */
+
     public function register(): void
     {
         //
@@ -26,11 +38,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SellerRepositoryInterface::class, SellerRepository::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        // 
-    }
+   
 }
