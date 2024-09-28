@@ -16,7 +16,7 @@ return [
     */
 
     // Paths where CORS policies should be applied
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'livewire/*'],
+    'paths' => ['api/*', 'livewire/*'],
 
     // Allowed HTTP methods (e.g., GET, POST, PUT)
     'allowed_methods' => ['*'],
@@ -37,6 +37,6 @@ return [
     'max_age' => 0,
 
     // Whether credentials (e.g., cookies or Authorization headers) are allowed
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
