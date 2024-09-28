@@ -14,6 +14,7 @@ class TrustProxies extends Middleware
      */
     protected $proxies = '*'; // Percayai semua proxy
 
+    
     /**
      * The headers that should be used to detect proxies.
      *
