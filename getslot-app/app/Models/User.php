@@ -13,6 +13,11 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->email == '@getslot.com';
+    }
+
     /**
      * The attributes that are mass assignable.
      *
