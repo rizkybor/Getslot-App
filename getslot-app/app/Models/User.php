@@ -15,7 +15,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->email == '@getslot.com';
+        return $this->email == 'team@getslot.com';
     }
 
     /**
