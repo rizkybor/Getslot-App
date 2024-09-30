@@ -14,6 +14,7 @@ Fitur Utama
 ## Index
 - [About](#about)
   - [Version-Type](#version-type)
+  - [Deployment](#deployment)
   - [Lisensi](#lisensi)
 
 ## About
@@ -27,7 +28,7 @@ Informasi Umum :
 	•	Server Web (Apache, Nginx, dll.)
 
 
-### Versi-Type
+### Version-Type
 
 Previous Version 1.0.0
 
@@ -40,6 +41,9 @@ Release 15 September 2024 :
 	- Fitur menambahkan Type berdasarkan Tiket.
 	- Fitur Multiple Participants.
 	- Penyesuaian UI Client.
+
+### Deployment
+Showcase Project : http://152.42.209.160/
 
 
 ### Lisensi
